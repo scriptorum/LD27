@@ -18,7 +18,6 @@ import game.component.Emitter;
 import game.component.Grid;
 import game.component.Image;
 import game.component.Layer;
-import game.component.Level;
 import game.component.Offset;
 import game.component.Origin;
 import game.component.Position;

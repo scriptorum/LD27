@@ -1,13 +1,16 @@
 #LD27
 Ludum Dare 27 compo entry
 
-##THEME
+## OVERVIEW
+This is a placeholder for my LD27 game. All that's here right now is some base code.
+
+###THEME
 Unknown
 
-##GOAL
+###GOAL
 Unknown
 
-##HOW TO PLAY 
+###HOW TO PLAY 
 Unknown
 
 ###JOHNNY DANGEROUSLY REFERENCE
