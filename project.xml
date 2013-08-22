@@ -1,0 +1,41 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <haxedef name="development"/> 
+    <section if="cpp">
+        <haxedef name="debug"/> 
+    </section>
+
+    <!-- 
+    <haxedef name="profiler"/> 
+    <haxelib name="hxcpp" />
+    <haxedef name="DEBUGGER" />
+    -->
+    
+    <app title="LD27" file="LD27" main="game.Main" version="1.0.0" company="Eric W. Lund" />
+    <app swf-version="11.2"/>
+
+    <assets path="assets/preloader" rename="gfx" include="*.png|*.jpg" />
+    <assets path="assets/art" rename="art" type="image" include="*.png" />
+    <assets path="assets/audio" rename="sound" type="sound" include="*.wav" />
+    <assets path="assets/audio" rename="music" type="music" include="*.mp3" />
+    <assets path="assets/font" rename="font" type="font" include="*.ttf" />
+    <assets path="assets/data" rename="xml" type="text" include="*.xml" />
+    <icon  path="assets/art/icon.svg" />
+
+    <window fps="30" resizable="false" background="0x000000" orientation="landscape"/>
+    <window width="600" height="600" unless="mobile" />
+    <window fullscreen="true" if="mobile" />
+
+    <set name="BUILD_DIR" value="export" /> 
+    <classpath name="source" />
+
+    <haxelib name="openfl" />
+    <haxelib name="HaxePunk" />
+    <haxelib name="ash" />
+
+    <section if="debug">
+        <assets path="assets/debug" rename="gfx" include="*.png|*.jpg" />
+    </section>
+</project>
+
