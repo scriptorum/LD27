@@ -33,7 +33,10 @@ class MapService
 	{
 		var res:String = typeValues[value];
 		if(res == null)
-			throw("Unknown object type:" + value);
+		{
+			trace("Unknown object type:" + value);
+			res = "unknown";
+		}
 		return res;
 	}
 
@@ -41,7 +44,7 @@ class MapService
 	{
 		var value = game.util.Util.find(typeValues, type);
 		if(value < 0)
-			throw("Unknown value for type:" + type);
+			trace("Unknown value for type:" + type);
 		return value;
 	}
 
@@ -83,14 +86,6 @@ class MapService
 	public static function makeObjects(): Grid
 	{
 		var grid = new Grid(WIDTH, HEIGHT, LAVA);
-
-		// for(x in 0...grid.width)
-		// for(y in 0...grid.height)
-		// {
-		// 	var value = UNKNOWN;
-		// 	grid.set(x, y, value);
-		// }
-
 		return grid;
 	}
 
@@ -114,16 +109,23 @@ class MapService
 				// NOTE this will break if you assign multiple clicks to a single object
 				// You'll need to refactor this if you want to add conditional clicks
 			}
+			var typeValue = getValueFromType(type);
 
 			// Load trigger rules
 			for(trg in obj.elementsNamed("trigger"))
 			{
-				var trigger = new TriggerRule(type, trg.get("terrain"), trg.get("result"), 
-					trg.get("message"), trg.get("neighbor"));
+				var resultType = trg.get("result");
+				var resultValue = getValueFromType(resultType);
+				var terrainType = trg.get("terrain");
+				var neighborType = trg.get("neighbor");
+				var neighborValue = (neighborType == null ? -1 : getValueFromType(neighborType));
+
+				var trigger = new TriggerRule(type, typeValue, terrainType, resultType, 
+					resultValue, trg.get("message"), neighborType, neighborValue);
 				if(trg.exists("chance"))
 					trigger.chance = Std.parseFloat(trg.get("chance"));
 				if(trg.exists("max"))
-					trigger.min = Std.parseInt(trg.get("max"));
+					trigger.max = Std.parseInt(trg.get("max"));
 				if(trg.exists("min"))
 					trigger.min = Std.parseInt(trg.get("min"));
 				triggers.push(trigger);

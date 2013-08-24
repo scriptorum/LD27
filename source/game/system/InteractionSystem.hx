@@ -10,6 +10,7 @@ import game.service.InputService;
 import game.service.MapService;
 import game.node.ControlNode;
 import game.node.InteractionNode;
+import game.node.TimeChildNode;
 import game.component.Application;
 import game.component.ActionQueue;
 import game.component.Tween;
@@ -22,12 +23,6 @@ import game.component.Origin;
 import game.component.Rotation;
 import game.component.Image;
 import game.util.Easing;
-
-class TimeChildNode extends Node<TimeChildNode>
-{
-	public var child:TimeChild;
-	public var position:Position;
-}
 
 class InteractionSystem extends System
 {
@@ -125,6 +120,7 @@ class InteractionSystem extends System
 			// Turn off working
 			aq.addCallback(function() {
 				timeChild.working = false;
+				timeChild.pleaseTrigger = true;
 				childEnt.remove(Interaction);
 			});		
 	}

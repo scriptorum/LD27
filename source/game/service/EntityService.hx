@@ -597,6 +597,11 @@ class EntityService
 		return getComponent("objectGrid", Grid);
 	}
 
+	public function getTerrainGrid(): Grid
+	{
+		return getComponent("terrainGrid", Grid);
+	}
+
 	public function setMessage(message:String): Void
 	{
 		// TODO Put up message indicator, perhaps adjust indicator color by child?

@@ -1,19 +1,6 @@
 <!-- 
 	All grid spaces are either water or land terrain. 
 	Many objects can only exist on one type of terrain.
-	After any click, set flag to RESTART_TRIGGER_RESOLUTION
-	Triggering System:
-	  - If < 100ms since last trigger check, skip
-	  - If CURRENT_RESOLVE_OBJECT/TRIGGER is not null, resolve that trigger
-	    - If a trigger is activate, stop (so trigger resolves again next iteration)
-	    - If a trigger is NOT activated set TRIGGER to next one in list
-	      (Always resolve triggers from early objects first, they're highest priority.)
-	    - If at end of trigger list set CURRENT_RESOLVE_OBJECT/TRIGGER to null
-	  - Otherwise if RESTART_TRIGGER_RESOLUTION flag on, turn flag off and set 
-	    CURRENT_RESOLVE_OBJECT/TRIGGER to first object/first trigger and resolve as above.
-
-	After a click makes a change, that space is subject to a LOCK period, which lasts until 
-	all triggering stops. The message "Watching changes occur" shows if you click on such a space.
 -->
 <rules>
 	<object type="any" terrain="any"/>
@@ -30,7 +17,7 @@
 	</object>
 	<object type="steam" terrain="water">
 		<click result="water" message="Cooling some water"/>
-		<trigger neighbor="lava" min="0" max="3" result="clear" message="Some lava cools"/>
+		<trigger neighbor="lava" min="0" max="1" result="clear" message="Some steam cools into solid water."/>
 	</object>
 	<object type="cells" terrain="water">
 		<click result="algae" message="Growing algae"/>
