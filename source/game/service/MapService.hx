@@ -13,15 +13,32 @@ class MapService
 	public static var ALGAE:Int = 9;
 	public static var UNKNOWN:Int = 10;
 
-	public static function makeGrid(): Grid
+	public static var WIDTH:Int = 14;
+	public static var HEIGHT:Int = 13;
+
+	public static function makeTerrain(): Grid
 	{
 		var chanceWater = 0.65;
-		var grid = new Grid(14, 13);
+		var grid = new Grid(WIDTH, HEIGHT);
 
 		for(x in 0...grid.width)
 		for(y in 0...grid.height)
 		{
 			var value = (Math.random() <= chanceWater ? WATER : LAND);
+			grid.set(x, y, value);
+		}
+
+		return grid;
+	}
+
+	public static function makeObjects(): Grid
+	{
+		var grid = new Grid(WIDTH, HEIGHT);
+
+		for(x in 0...grid.width)
+		for(y in 0...grid.height)
+		{
+			var value = UNKNOWN;
 			grid.set(x, y, value);
 		}
 

@@ -393,8 +393,8 @@ class EntityService
 
 	public function startMenu(): Void
 	{
-		// startGame();
-		// return; // REMOVE HACK
+		startGame();
+		return; // REMOVE HACK
 
 		var e = makeEntity("bg");
 		e.add(Layer.back);
@@ -411,13 +411,33 @@ class EntityService
 		e.add(new Image("art/game.png"));
 		addTo(e, 0,0);
 
-		var grid:Grid = MapService.makeGrid();
-		e = makeEntity("grid");
+		var objectImage:Image = new Image("art/objects.png");
+		var subdivision:Subdivision = new Subdivision(8, 8, new Size(40, 40));
+		var gridPos:Position = new Position(20, 50);
+
+		var grid:Grid = MapService.makeTerrain();
+		e = resolveEntity("terrainGrid");
 		e.add(Layer.middle);
-		e.add(new Image("art/objects.png"));
-		e.add(new Subdivision(8, 8, new Size(40, 40)));
+		e.add(objectImage);
+		e.add(subdivision);
 		e.add(grid);
-		addTo(e, 20, 50);
+		e.add(gridPos);
+
+		grid = MapService.makeObjects();
+		e = resolveEntity("objectGrid");
+		e.add(Layer.front);
+		e.add(objectImage);
+		e.add(subdivision);
+		e.add(grid);
+		e.add(gridPos);
+
+		for(i in 0...6)
+		{
+			e = makeEntity("child-icon");
+			e.add(Layer.middle);
+			e.add(new Image("art/child-icon.png"));
+			addTo(e, 180 + 40 * i, 5);
+		}
 
 		addControl(new GameControl());
 	}
