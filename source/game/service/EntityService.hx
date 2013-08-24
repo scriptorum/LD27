@@ -581,4 +581,14 @@ class EntityService
 		var text:Text = e.get(Text);
 		text.message = str;
 	}
+
+	public function getGridEntity(): Entity
+	{
+		return getEntity("objectGrid");
+	}
+
+	public function getGrid(): Grid
+	{
+		return getComponent("objectGrid", Grid);
+	}
 }

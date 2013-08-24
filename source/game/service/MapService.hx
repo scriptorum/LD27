@@ -10,6 +10,7 @@ class MapService
 	public static var LAND:Int = 1;
 	public static var LAVA:Int = 2;
 	public static var STEAM:Int = 3;
+	public static var CLEAR:Int = 4;
 
 	public static var CELLS:Int = 8;
 	public static var ALGAE:Int = 9;
@@ -24,7 +25,7 @@ class MapService
 	public static var triggers:Array<TriggerRule>;
 
 	public static var typeValues:Array<String> = [
-		"water", "land", "lava", "steam", null, null, null, null,
+		"water", "land", "lava", "steam", "clear", null, null, null,
 		"cells", "algae", "unknown", null, null, null, null, null
 	];
 
@@ -32,8 +33,16 @@ class MapService
 	{
 		var res:String = typeValues[value];
 		if(res == null)
-			return "unknown";
+			throw("Unknown object type:" + value);
 		return res;
+	}
+
+	public static function getValueFromType(type:String): Int
+	{
+		var value = game.util.Util.find(typeValues, type);
+		if(value < 0)
+			throw("Unknown value for type:" + type);
+		return value;
 	}
 
 	public static function makeTerrain(): Grid

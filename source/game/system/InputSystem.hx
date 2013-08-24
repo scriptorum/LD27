@@ -84,15 +84,22 @@ class InputSystem extends System
 		{
 			if(InputService.clicked)
 			{
-				var grid = factory.resolveEntity("objectGrid");
-				var index = factory.gridTest(grid, InputService.mouseX, InputService.mouseY);
+				var gridEnt = factory.getGridEntity();
+				var index = factory.gridTest(gridEnt, InputService.mouseX, InputService.mouseY);
 				if(index >= 0)
 				{
-					var obj = grid.get(Grid).getIndex(index);
-					var type = MapService.getTypeFromValue(obj);
+					var grid:Grid = gridEnt.get(Grid);
+					var value = grid.getIndex(index);
+					var type = MapService.getTypeFromValue(value);
+					var newType:String = MapService.getClickResult(type);
+					var newValue = MapService.getValueFromType(newType);
+					grid.setIndex(index, newValue);
+					grid.changed = true;
+
 					trace("You clicked on:" + type + " becoming:" + 
-						MapService.getClickResult(type) + " message:" + 
-						MapService.getClickMessage(type));
+						newType + " message:" + 
+						MapService.getClickMessage(type) + " gridValue:" + value);
+
 				}
 				else factory.getApplication().changeMode(ApplicationMode.END);
 			}
