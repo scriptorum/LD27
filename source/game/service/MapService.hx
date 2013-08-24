@@ -1,6 +1,7 @@
 package game.service;
 
 import game.component.Grid;
+import game.component.TriggerRule;
 import openfl.Assets;
 
 class MapService
@@ -20,6 +21,7 @@ class MapService
 	public static var xml:Xml;
 	public static var clickMessages:Map<String, String>;
 	public static var clickResults:Map<String, String>;
+	public static var triggers:Array<TriggerRule>;
 
 	public static var typeValues:Array<String> = [
 		"water", "land", "lava", "steam", null, null, null, null,
@@ -83,30 +85,49 @@ class MapService
 		return grid;
 	}
 
-	public static function loadRules(): Xml
+	public static function init(): Xml
 	{
 		var str:String = Assets.getText("xml/rules.xml");
 		xml = Xml.parse(str).firstElement();
 
 		clickMessages = new Map();
 		clickResults = new Map();
+		triggers = new Array<TriggerRule>();
+
 		for(obj in xml.elementsNamed("object"))
 		{
-			var type = obj.get("type");
+			// Load click rules
+			var type:String = obj.get("type");
 			for(clk in obj.elementsNamed("click"))
 			{
 				clickMessages.set(type, clk.get("message"));
 				clickResults.set(type, clk.get("result"));
+				// NOTE this will break if you assign multiple clicks to a single object
+				// You'll need to refactor this if you want to add conditional clicks
+			}
+
+			// Load trigger rules
+			for(trg in obj.elementsNamed("trigger"))
+			{
+				var trigger = new TriggerRule(type, trg.get("terrain"), trg.get("result"), 
+					trg.get("message"), trg.get("neighbor"));
+				if(trg.exists("chance"))
+					trigger.chance = Std.parseFloat(trg.get("chance"));
+				if(trg.exists("max"))
+					trigger.min = Std.parseInt(trg.get("max"));
+				if(trg.exists("min"))
+					trigger.min = Std.parseInt(trg.get("min"));
+				triggers.push(trigger);
 			}
 		}
 
 		return xml;
 	}
 
-	// public static function getTriggers(): Array<Trigger>
-	// {
-
-	// }
+	public static function getTriggerRules(): Array<TriggerRule>
+	{
+		return triggers;
+	}
 
 	public static function getClickResult(type:String): String
 	{

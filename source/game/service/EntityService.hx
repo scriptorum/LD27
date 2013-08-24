@@ -295,23 +295,6 @@ class EntityService
 		return -1;
 	}
 
-	public function startInit(): Void
-	{
-		#if profiler
-			ProfileService.init();
-			var e = new Entity("profileControl");
-			e.add(ProfileControl.instance);
-			e.add(Transitional.ALWAYS);
-			engine.addEntity(e);
-		#end
-
-		MapService.loadRules();
-		trace(MapService.xml);
-
-		trace("Click message for fish:" + MapService.getClickMessage("fish"));
-		trace("Click result for fish:" + MapService.getClickResult("fish"));
-	}
-
 	public function changeCameraFocus(entity:Entity): Void
 	{
 		for(node in engine.getNodeList(CameraFocusNode))
@@ -434,9 +417,33 @@ class EntityService
 	 	return count;
 	}
 
+	#if profiler
+		public function initProfiler(): Void
+		{
+				ProfileService.init();
+				var e = new Entity("profileControl");
+				e.add(ProfileControl.instance);
+				e.add(Transitional.ALWAYS);
+				engine.addEntity(e);
+		}
+	#end
+
 	/*************************************************************************************/
 
 
+	public function startInit(): Void
+	{
+		#if profiler
+			initProfiler();
+		#end
+
+		MapService.init();
+		// trace(MapService.xml);
+		// trace("Click message for fish:" + MapService.getClickMessage("fish"));
+		// trace("Click result for fish:" + MapService.getClickResult("fish"));
+		// for(tr in MapService.getTriggerRules())
+		// 	trace(game.util.Util.dump(tr));
+	}
 	public function startMenu(): Void
 	{
 		startGame();

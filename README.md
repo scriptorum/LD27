@@ -1,17 +1,21 @@
-#LD27
-Ludum Dare 27 compo entry
+#Offspring
+This is my Ludum Dare 27 compo entry "Offspring."
 
 ## OVERVIEW
-This is a placeholder for my LD27 game. All that's here right now is some base code.
+Offspring is a game about guiding a planet's evolution to life, humanity, and eventually space travel.
 
 ###THEME
-Unknown
+10 Seconds is the theme of the competition. I'm using that as the amount of time it takes for one of
+your six "children" to fast-forward massive changes in a single location. For example, it only takes
+ten seconds to evolve a rodent from simple cells, or 10 seconds to turn a village into a city.
+
+In case 10 seconds turns 
 
 ###GOAL
-Unknown
+Bring about a space-faring civilization on the planet.
 
 ###HOW TO PLAY 
-Unknown
+Let you know later.
 
 ###JOHNNY DANGEROUSLY REFERENCE
 You'll feel better if you have a cookie!

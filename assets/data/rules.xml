@@ -45,11 +45,10 @@
 	</object>
 	<object type="mineral" terrain="any"> <!-- mineral on land disappears -->
 		<click terrain="water" result="cells" message="Growing cells"/>
-		<trigger terrain="land" result="clear"/>
+		<trigger terrain="land" result="clear" message="Some turn into dust"/>
 	</object>
 	<object type="meteor" terrain="land">
-		<click result="YYYY" message="XXXX"/>
-		<trigger result="clear"/>
+		<click result="meteor" message="A meteor pummels the ground"/>
 	</object>
 	<object type="plant" terrain="land">
 		<click result="seed" message="Making a seed"/>
