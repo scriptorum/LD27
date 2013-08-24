@@ -497,6 +497,12 @@ class EntityService
 			addTo(e, 180 + 40 * i, 5);
 		}
 
+		e = resolveEntity("status");
+		e.add(Layer.middle);
+		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
+		e.add(new Text("Loading", style));
+		e.add(new Position(20, 575));
+
 		addControl(new GameControl());
 	}
 
@@ -604,7 +610,9 @@ class EntityService
 
 	public function setMessage(message:String): Void
 	{
-		// TODO Put up message indicator, perhaps adjust indicator color by child?
-		trace(message);
+		// trace(message);
+		var e = resolveEntity("status");
+		var text = e.get(Text);
+		text.message = message;
 	}
 }

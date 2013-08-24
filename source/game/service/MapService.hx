@@ -42,6 +42,11 @@ class MapService
 
 	public static function getValueFromType(type:String): Int
 	{
+		if(type == null)
+		{
+			trace("Cannot getValueFromType null");
+			return -1;
+		}
 		var value = game.util.Util.find(typeValues, type);
 		if(value < 0)
 			trace("Unknown value for type:" + type);

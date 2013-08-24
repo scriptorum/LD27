@@ -101,9 +101,9 @@ class InteractionSystem extends System
 			aq.addCallback(function() { 
 				grid.set(interaction.x, interaction.y, newValue); 
 				grid.changed = true;
-
-				// Update message
 				factory.setMessage(MapService.getClickMessage(type));
+				timeChild.pleaseTrigger = true;
+				childEnt.remove(Interaction);
 			});
 
 			// Animate child back to origin
@@ -120,8 +120,6 @@ class InteractionSystem extends System
 			// Turn off working
 			aq.addCallback(function() {
 				timeChild.working = false;
-				timeChild.pleaseTrigger = true;
-				childEnt.remove(Interaction);
 			});		
 	}
 
