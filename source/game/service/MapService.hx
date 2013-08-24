@@ -18,9 +18,10 @@ class MapService
 
 	public static function makeTerrain(): Grid
 	{
-		var chanceWater = 0.65;
+		var chanceWater = 0.6;
 		var grid = new Grid(WIDTH, HEIGHT);
 
+		// Randomly set up some land/water
 		for(x in 0...grid.width)
 		for(y in 0...grid.height)
 		{
@@ -28,7 +29,26 @@ class MapService
 			grid.set(x, y, value);
 		}
 
-		return grid;
+		// Smooth out the shapes, eliminating islands and diagonals.
+		var grid2 = new Grid(WIDTH, HEIGHT);
+
+		for(x in 0...grid.width)
+		for(y in 0...grid.height)
+		{
+			var matches = 0;
+			var value = grid.get(x, y);
+			var neighbors = grid.getNeighboringIndeces(grid.indexOf(x,y), true);
+			for(neighbor in neighbors)
+				if(grid.getIndex(neighbor) == value)
+					matches++;
+
+			if(matches == 0)
+				value = grid.getIndex(neighbors[0]);
+
+			grid2.set(x, y, value);
+		}
+
+		return grid2;
 	}
 
 	public static function makeObjects(): Grid
