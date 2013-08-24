@@ -38,7 +38,7 @@ import game.node.CameraFocusNode;
 import game.node.SoundNode;
 import game.util.Easing;
 import game.util.Util;
-import game.service.SaveService;
+import game.service.MapService;
 
 using StringTools;
 
@@ -394,7 +394,8 @@ class EntityService
 	public function startMenu(): Void
 	{
 		// startGame();
-		// return;
+		// return; // REMOVE HACK
+
 		var e = makeEntity("bg");
 		e.add(Layer.back);
 		e.add(new Image("art/mainmenu.png"));
@@ -409,6 +410,14 @@ class EntityService
 		e.add(Layer.back);
 		e.add(new Image("art/game.png"));
 		addTo(e, 0,0);
+
+		var grid:Grid = MapService.makeGrid();
+		e = makeEntity("grid");
+		e.add(Layer.middle);
+		e.add(new Image("art/objects.png"));
+		e.add(new Subdivision(8, 8, new Size(40, 40)));
+		e.add(grid);
+		addTo(e, 20, 50);
 
 		addControl(new GameControl());
 	}
