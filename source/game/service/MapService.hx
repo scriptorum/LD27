@@ -53,14 +53,14 @@ class MapService
 
 	public static function makeObjects(): Grid
 	{
-		var grid = new Grid(WIDTH, HEIGHT);
+		var grid = new Grid(WIDTH, HEIGHT, LAVA);
 
-		for(x in 0...grid.width)
-		for(y in 0...grid.height)
-		{
-			var value = UNKNOWN;
-			grid.set(x, y, value);
-		}
+		// for(x in 0...grid.width)
+		// for(y in 0...grid.height)
+		// {
+		// 	var value = UNKNOWN;
+		// 	grid.set(x, y, value);
+		// }
 
 		return grid;
 	}

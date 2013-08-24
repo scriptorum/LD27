@@ -234,16 +234,16 @@ class EntityService
 
 		var off = e.get(Offset);
 
-	trace("Hit Test e:" + e.name	
-			+ " x:" + Std.string(x) 
-			+ " y:" + Std.string(y)
-			+ " pos.x:" + Std.string(pos.x) 
-			+ " pos.y:" + Std.string(pos.y)
-			+ " off.x:" + Std.string(off.x) 
-			+ " off.y:" + Std.string(off.y)
-			+ " image.width:" + Std.string(image.width) 
-			+ " image.height:" + Std.string(image.height)
-		);
+		// trace("Hit Test e:" + e.name	
+		// 		+ " x:" + Std.string(x) 
+		// 		+ " y:" + Std.string(y)
+		// 		+ " pos.x:" + Std.string(pos.x) 
+		// 		+ " pos.y:" + Std.string(pos.y)
+		// 		+ " off.x:" + Std.string(off.x) 
+		// 		+ " off.y:" + Std.string(off.y)
+		// 		+ " image.width:" + Std.string(image.width) 
+		// 		+ " image.height:" + Std.string(image.height)
+		// 	);
 
 		if(off != null)
 		{
@@ -253,6 +253,46 @@ class EntityService
 
 		return(x >= pos.x && x < (pos.x + image.width) && 
 			y >= pos.y && y < (pos.y + image.height));
+	}
+
+	// Pass a grid entity. Must have a position, grid, and subdivision.
+	// Returns the grid index number clicked, or -1 if out of bounds.
+	public function gridTest(e:Entity, x:Float, y:Float): Int
+	{
+		if(e == null)
+			return -1;
+
+		var pos = e.get(Position);
+		var grid = e.get(Grid);
+		var sd = e.get(Subdivision);
+		if(pos == null || grid == null || sd == null)
+			return -1;
+
+		var off = e.get(Offset);
+		// trace("Hit Test e:" + e.name	
+		// 		+ " x:" + Std.string(x) 
+		// 		+ " y:" + Std.string(y)
+		// 		+ " pos.x:" + Std.string(pos.x) 
+		// 		+ " pos.y:" + Std.string(pos.y)
+		// 		+ " plot.width:" + Std.string(sd.plot.width) 
+		// 		+ " plot.height:" + Std.string(sd.plot.height)
+		// 		);
+		if(off != null)
+		{
+			x -= off.x;
+			y -= off.y;
+		}
+
+		var gx:Int = Math.floor((x - pos.x) / sd.plot.width);
+		var gy:Int = Math.floor((y - pos.y) / sd.plot.height);
+		// trace("grid pos:" + Std.string(gx) + "," + Std.string(gy) + 
+		// 	" in domain:" + (grid.withinDomain(gx, gy) ? "Y" : "N") + 
+		// 	" index:" + Std.string(grid.indexOf(gx, gy)));
+
+		if(grid.withinDomain(gx, gy))
+			return grid.indexOf(gx, gy);
+
+		return -1;
 	}
 
 	public function startInit(): Void

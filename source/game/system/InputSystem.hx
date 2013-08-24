@@ -81,7 +81,13 @@ class InputSystem extends System
 		for(node in engine.getNodeList(GameControlNode))
 		{
 			if(InputService.clicked)
-				factory.getApplication().changeMode(ApplicationMode.END);
+			{
+				var index = factory.gridTest(factory.resolveEntity("terrainGrid"), 
+					InputService.mouseX, InputService.mouseY);
+				if(index >= 0)
+					trace("You clicked on the grid on index:" + index);
+				else factory.getApplication().changeMode(ApplicationMode.END);
+			}
 		}
 	}
 
