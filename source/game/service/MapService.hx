@@ -1,6 +1,7 @@
 package game.service;
 
 import game.component.Grid;
+import openfl.Assets;
 
 class MapService
 {
@@ -15,6 +16,23 @@ class MapService
 
 	public static var WIDTH:Int = 14;
 	public static var HEIGHT:Int = 13;
+
+	public static var xml:Xml;
+	public static var clickMessages:Map<String, String>;
+	public static var clickResults:Map<String, String>;
+
+	public static var typeValues:Array<String> = [
+		"water", "land", "lava", "steam", null, null, null, null,
+		"cells", "algae", "unknown", null, null, null, null, null
+	];
+
+	public static function getTypeFromValue(value:Int): String
+	{
+		var res:String = typeValues[value];
+		if(res == null)
+			return "unknown";
+		return res;
+	}
 
 	public static function makeTerrain(): Grid
 	{
@@ -63,5 +81,40 @@ class MapService
 		// }
 
 		return grid;
+	}
+
+	public static function loadRules(): Xml
+	{
+		var str:String = Assets.getText("xml/rules.xml");
+		xml = Xml.parse(str).firstElement();
+
+		clickMessages = new Map();
+		clickResults = new Map();
+		for(obj in xml.elementsNamed("object"))
+		{
+			var type = obj.get("type");
+			for(clk in obj.elementsNamed("click"))
+			{
+				clickMessages.set(type, clk.get("message"));
+				clickResults.set(type, clk.get("result"));
+			}
+		}
+
+		return xml;
+	}
+
+	// public static function getTriggers(): Array<Trigger>
+	// {
+
+	// }
+
+	public static function getClickResult(type:String): String
+	{
+		return clickResults.get(type);
+	}
+
+	public static function getClickMessage(type:String): String
+	{
+		return clickMessages.get(type);
 	}
 }

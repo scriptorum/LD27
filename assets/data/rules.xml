@@ -39,7 +39,7 @@
 		<click result="fish" message="Creating a fish"/>
 	</object>
 	<object type="fish" terrain="water">
-		<click result="clear" message="Cooling some lava"/>
+		<click result="clear" message="Killing some fish"/>
 		<trigger neighbor="lava" min="4" max="8" result="clear" message="Some fish are dying from nearby lava"/>
 		<trigger neighbor="steam" min="3" max="8" result="clear" message="Some fish are dying from nearby steam"/>
 	</object>

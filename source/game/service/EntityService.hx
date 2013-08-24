@@ -304,6 +304,12 @@ class EntityService
 			e.add(Transitional.ALWAYS);
 			engine.addEntity(e);
 		#end
+
+		MapService.loadRules();
+		trace(MapService.xml);
+
+		trace("Click message for fish:" + MapService.getClickMessage("fish"));
+		trace("Click result for fish:" + MapService.getClickResult("fish"));
 	}
 
 	public function changeCameraFocus(entity:Entity): Void

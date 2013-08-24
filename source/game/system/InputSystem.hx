@@ -9,8 +9,10 @@ import com.haxepunk.utils.Key;
 
 import game.service.EntityService;
 import game.service.InputService;
+import game.service.MapService;
 import game.node.ControlNode;
 import game.component.Application;
+import game.component.Grid;
 
 #if profiler
 	import game.service.ProfileService;
@@ -82,10 +84,16 @@ class InputSystem extends System
 		{
 			if(InputService.clicked)
 			{
-				var index = factory.gridTest(factory.resolveEntity("terrainGrid"), 
-					InputService.mouseX, InputService.mouseY);
+				var grid = factory.resolveEntity("objectGrid");
+				var index = factory.gridTest(grid, InputService.mouseX, InputService.mouseY);
 				if(index >= 0)
-					trace("You clicked on the grid on index:" + index);
+				{
+					var obj = grid.get(Grid).getIndex(index);
+					var type = MapService.getTypeFromValue(obj);
+					trace("You clicked on:" + type + " becoming:" + 
+						MapService.getClickResult(type) + " message:" + 
+						MapService.getClickMessage(type));
+				}
 				else factory.getApplication().changeMode(ApplicationMode.END);
 			}
 		}
