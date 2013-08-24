@@ -10,11 +10,12 @@ class Tween
 	public var complete:Bool = false;
 	public var running:Bool = false;
 	public var source:Dynamic;
+	public var target:Dynamic;
 	public var ranges:Array<Float>;
 	public var starts:Array<Float>;
 	public var props:Array<String>;
 	public var easing:EasingFunction;
-	public var optional:Float;
+	public var optional:Float = 1.70158;
 	public var elapsed:Float = 0;
 	public var duration:Float;
 	public var destroyEntity:Bool = false;
@@ -23,14 +24,22 @@ class Tween
 	public var name:String; // optional object name for logging
 
 	public function new(source:Dynamic, target:Dynamic, duration:Float, 
-		easing:EasingFunction = null, optional:Float = 1.70158)
+		easing:EasingFunction = null, autoStart:Bool = true)
 	{
 		this.source = source;
 		this.easing = easing;
 		this.duration = duration;
-		this.easing = (easing == null ? Easing.linearTween : easing);
-		this.optional = optional;
-		this.running = true; // set to false immediately to prevent autostart
+		this.target = target;
+		this.easing = (easing == null ? Easing.linear : easing);
+		
+		if(autoStart)
+			start();
+	}
+
+	// If not autostarted, must call this to run tween
+	public function start()
+	{
+		this.running = true;
 		this.name = "tween"  + Std.string(++created);
 
 		if(Reflect.isObject(target))
@@ -68,7 +77,8 @@ class Tween
 		{
 			var value = easing(elapsed, starts[i], ranges[i], duration, optional);
 			Reflect.setProperty(source, props[i], value);
-			// trace("TWEEN Setting prop " + props[i] + " to value " + Reflect.getProperty(source, props[i]));
+			// trace("TWEEN Setting prop " + props[i] + " to value " + Reflect.getProperty(source, props[i]) + 
+			// 	" start:" + starts[i] + " range:" + ranges[i] + " elapsed:" + elapsed);
 		}
 
  		if(elapsed >= duration)

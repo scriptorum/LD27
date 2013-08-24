@@ -16,6 +16,8 @@ import game.system.TweeningSystem;
 import game.system.InitSystem;
 import game.system.AudioSystem;
 import game.system.ActionSystem;
+import game.system.TriggerSystem;
+import game.system.InteractionSystem;
 import game.component.Control;
 
 #if profiler
@@ -45,6 +47,10 @@ class GameWorld extends World
 	{
 		addSystem(new InitSystem(ash, factory));
 		addSystem(new InputSystem(ash, factory)); // Collect player/inventory input
+
+		addSystem(new InteractionSystem(ash, factory));
+		addSystem(new TriggerSystem(ash, factory));
+
 		addSystem(new ActionSystem(ash, factory));
 		addSystem(new TweeningSystem(ash, factory));
 		addSystem(new CameraSystem(ash));

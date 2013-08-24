@@ -13,6 +13,7 @@ import game.service.MapService;
 import game.node.ControlNode;
 import game.component.Application;
 import game.component.Grid;
+import game.component.Interaction;
 
 #if profiler
 	import game.service.ProfileService;
@@ -89,17 +90,8 @@ class InputSystem extends System
 				if(index >= 0)
 				{
 					var grid:Grid = gridEnt.get(Grid);
-					var value = grid.getIndex(index);
-					var type = MapService.getTypeFromValue(value);
-					var newType:String = MapService.getClickResult(type);
-					var newValue = MapService.getValueFromType(newType);
-					grid.setIndex(index, newValue);
-					grid.changed = true;
-
-					trace("You clicked on:" + type + " becoming:" + 
-						newType + " message:" + 
-						MapService.getClickMessage(type) + " gridValue:" + value);
-
+					var pt = grid.fromIndex(index);
+					gridEnt.add(new Interaction(pt.x, pt.y));
 				}
 				else factory.getApplication().changeMode(ApplicationMode.END);
 			}

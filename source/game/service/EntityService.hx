@@ -33,6 +33,7 @@ import game.component.Text;
 import game.component.Tile;
 import game.component.Timestamp;
 import game.component.Tween;
+import game.component.TimeChild;
 import game.node.TransitionalNode;
 import game.node.CameraFocusNode;
 import game.node.SoundNode;
@@ -318,13 +319,13 @@ class EntityService
 	}
 
 	public function addTween(source:Dynamic, target:Dynamic, duration:Float, 
-		easing:EasingFunction = null, optional:Float = 1.70158, name:String = null): Tween
+		easing:EasingFunction = null, autoStart:Bool = true, name:String = null): Tween
 	{
 		var e = makeEntity("tween");
 		if(name != null)
 			e.name = name;
 
-		var tween = new Tween(source, target, duration, easing, optional);
+		var tween = new Tween(source, target, duration, easing, autoStart);
 		tween.destroyEntity = true;
 		e.add(tween);
 		add(e);
@@ -478,7 +479,7 @@ class EntityService
 
 		grid = MapService.makeObjects();
 		e = resolveEntity("objectGrid");
-		e.add(Layer.front);
+		e.add(Layer.middle);
 		e.add(objectImage);
 		e.add(subdivision);
 		e.add(grid);
@@ -486,9 +487,13 @@ class EntityService
 
 		for(i in 0...6)
 		{
-			e = makeEntity("child-icon");
-			e.add(Layer.middle);
+			e = makeEntity("child");
+			e.add(Layer.front);
 			e.add(new Image("art/child-icon.png"));
+			e.add(new TimeChild());
+			e.add(new Alpha(1.0));
+			e.add(new Rotation(0));
+			e.add(new Origin(20, 20));
 			addTo(e, 180 + 40 * i, 5);
 		}
 
@@ -590,5 +595,11 @@ class EntityService
 	public function getGrid(): Grid
 	{
 		return getComponent("objectGrid", Grid);
+	}
+
+	public function setMessage(message:String): Void
+	{
+		// TODO Put up message indicator, perhaps adjust indicator color by child?
+		trace(message);
 	}
 }

@@ -11,7 +11,7 @@ typedef EasingFunction = Float->Float->Float->Float->Float->Float;
 class Easing
 {
 	// simple linear tweening - no easing:Float, no acceleration
-	public static function linearTween(t:Float, b:Float, c:Float, d:Float, ?o:Float): Float
+	public static function linear(t:Float, b:Float, c:Float, d:Float, ?o:Float): Float
 	{
 		return c * t / d + b;
 	}
