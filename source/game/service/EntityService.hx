@@ -393,17 +393,39 @@ class EntityService
 
 	public function startMenu(): Void
 	{
-		startNarrative();
+		// startGame();
+		// return;
+		var e = makeEntity("bg");
+		e.add(Layer.back);
+		e.add(new Image("art/mainmenu.png"));
+		addTo(e, 0,0);
+
+		addControl(new MenuControl());
 	}
 
 	public function startGame(): Void
 	{
-		
+		var e = makeEntity("bg");
+		e.add(Layer.back);
+		e.add(new Image("art/game.png"));
+		addTo(e, 0,0);
+
+		addControl(new GameControl());
 	}
 
 	public function startEnd(): Void
 	{
-		
+		var e = makeEntity("bg");
+		e.add(Layer.back);
+		e.add(new Image("art/altbg.png"));
+		addTo(e, 0,0);
+
+		e = makeEntity("button");
+		e.add(Layer.middle);
+		e.add(new Image("art/but-mainmenu.png"));
+		addTo(e, 238, 530);
+
+		addControl(new EndControl());
 	}
 
 	public function startNarrative(): Void

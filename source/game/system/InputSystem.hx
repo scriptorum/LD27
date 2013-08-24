@@ -10,6 +10,7 @@ import com.haxepunk.utils.Key;
 import game.service.EntityService;
 import game.service.InputService;
 import game.node.ControlNode;
+import game.component.Application;
 
 #if profiler
 	import game.service.ProfileService;
@@ -36,6 +37,9 @@ class InputSystem extends System
 	{
 		handleProfileControl();
 		handleNarrativeControl();
+		handleMenuControl();
+		handleGameControl();
+		handleEndControl();
 		InputService.clearLastKey();
 	}
 
@@ -54,12 +58,39 @@ class InputSystem extends System
 		#end
 	}
 
+	public function handleMenuControl()
+	{
+		for(node in engine.getNodeList(MenuControlNode))
+		{
+			if(InputService.clicked)
+				factory.getApplication().changeMode(ApplicationMode.NARRATIVE);
+		}
+	}
+
 	public function handleNarrativeControl()
 	{
 		for(node in engine.getNodeList(NarrativeControlNode))
 		{
 			if(InputService.clicked)
 				factory.nextNarrativePage();
+		}
+	}
+
+	public function handleGameControl()
+	{
+		for(node in engine.getNodeList(GameControlNode))
+		{
+			if(InputService.clicked)
+				factory.getApplication().changeMode(ApplicationMode.END);
+		}
+	}
+
+	public function handleEndControl()
+	{
+		for(node in engine.getNodeList(EndControlNode))
+		{
+			if(InputService.clicked)
+				factory.getApplication().changeMode(ApplicationMode.MENU);
 		}
 	}
 }
