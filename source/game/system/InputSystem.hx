@@ -11,6 +11,7 @@ import game.service.EntityService;
 import game.service.InputService;
 import game.service.MapService;
 import game.node.ControlNode;
+import game.node.InteractionNode;
 import game.component.Application;
 import game.component.Grid;
 import game.component.Interaction;
@@ -85,17 +86,32 @@ class InputSystem extends System
 		{
 			if(InputService.clicked)
 			{
-				var gridEnt = factory.getGridEntity();
-				var index = factory.gridTest(gridEnt, InputService.mouseX, InputService.mouseY);
+				var index = factory.gridTest(factory.getGridEntity(), 
+					InputService.mouseX, InputService.mouseY);
 				if(index >= 0)
-				{
-					var grid:Grid = gridEnt.get(Grid);
-					var pt = grid.fromIndex(index);
-					gridEnt.add(new Interaction(pt.x, pt.y));
-				}
+					addInteraction(index);
 				else factory.getApplication().changeMode(ApplicationMode.END);
 			}
 		}
+	}
+
+	public function addInteraction(index:Int): Void
+	{
+		var grid:Grid = factory.getGrid();
+		var pt = grid.fromIndex(index);
+
+		// Ensure existing interaction does not exist
+		for(node in engine.getNodeList(InteractionNode))
+		{
+			if(pt.x == node.interaction.x && pt.y == node.interaction.y)
+			{
+				factory.setMessage("Time makes you wait");
+				return;
+			}
+		}
+
+		var gridEnt = factory.getGridEntity();
+		gridEnt.add(new Interaction(pt.x, pt.y));
 	}
 
 	public function handleEndControl()

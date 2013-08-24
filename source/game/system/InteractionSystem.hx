@@ -9,6 +9,7 @@ import game.service.EntityService;
 import game.service.InputService;
 import game.service.MapService;
 import game.node.ControlNode;
+import game.node.InteractionNode;
 import game.component.Application;
 import game.component.ActionQueue;
 import game.component.Tween;
@@ -21,13 +22,6 @@ import game.component.Origin;
 import game.component.Rotation;
 import game.component.Image;
 import game.util.Easing;
-
-class InteractionNode extends Node<InteractionNode>
-{
-	public var interaction:Interaction;
-	public var grid:Grid;
-	public var position:Position;
-}
 
 class TimeChildNode extends Node<TimeChildNode>
 {
@@ -51,30 +45,33 @@ class InteractionSystem extends System
 	{
 		for(node in engine.getNodeList(InteractionNode))
 		{
-			// ??? See if any children are working on this space already
+			// See if any children are working on this space already
+			if(node.interaction.assigned)
+				continue;
 
 			// Find an available child
 			var childEnt = findAvailableChild();			
 			if(childEnt == null)
+			{
 				factory.setMessage("All children are busy");
+				node.entity.remove(Interaction);
+			}
 
 			// Put that rascal to work
 			else employChild(childEnt, node.interaction, node.position);
-
-			node.entity.remove(Interaction);
 		}
 	}
 
 	public function employChild(childEnt:Entity, interaction:Interaction, gridPos:Position): Void
 	{
-			var gridEnt:Entity = factory.getGridEntity();
-
 			// Set child to working
+			var gridEnt:Entity = factory.getGridEntity();
 			var timeChild = childEnt.get(TimeChild);
 			var alpha = childEnt.get(Alpha);
 			var rotation = childEnt.get(Rotation);
 			var position = childEnt.get(Position);
 			timeChild.working = true;
+			interaction.assigned = true;
 
 			// Determine target
 			var px = interaction.x * 40 + gridPos.x;
@@ -86,8 +83,6 @@ class InteractionSystem extends System
 			var tweenAlphaIn = factory.addTween(alpha, { value:0.5 }, 0.4, Easing.linear);
 			var tweenPosAway = factory.addTween(position, { x:px, y:py }, 0.4, Easing.easeInOutQuad);
 			aq.waitForProperty(tweenPosAway, "complete", true);
-
-			// ??? Lock out grid from clicking
 
 			// Swap child image for "working" image (probably use Tiles for this)
 			aq.addCallback(function() {
@@ -130,6 +125,7 @@ class InteractionSystem extends System
 			// Turn off working
 			aq.addCallback(function() {
 				timeChild.working = false;
+				childEnt.remove(Interaction);
 			});		
 	}
 
