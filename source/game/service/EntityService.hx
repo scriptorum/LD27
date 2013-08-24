@@ -387,4 +387,94 @@ class EntityService
 	 		count++;
 	 	return count;
 	}
+
+	/*************************************************************************************/
+
+
+	public function startMenu(): Void
+	{
+		startNarrative();
+	}
+
+	public function startGame(): Void
+	{
+		
+	}
+
+	public function startEnd(): Void
+	{
+		
+	}
+
+	public function startNarrative(): Void
+	{
+		var e = makeEntity("bg");
+		e.add(Layer.back);
+		e.add(new Image("art/altbg.png"));
+		addTo(e, 0,0);
+
+		e = makeEntity("button");
+		e.add(Layer.middle);
+		e.add(new Image("art/but-continue.png"));
+		addTo(e, 462, 542);
+
+		e = resolveEntity("narrative_text");
+		e.add(Layer.middle);
+		var style = new TextStyle(0xFFFFFF, 30, "font/SnappyServiceNF.ttf");
+		e.add(new Offset(0,0));
+		e.add(new Text("??", style));
+		e.add(new Position(21, 67));
+
+		addControl(new NarrativeControl());
+
+		nextNarrativePage();
+	}
+
+	public function nextNarrativePage(): Void
+	{
+		var e = resolveEntity(CONTROL);
+		var control:NarrativeControl = e.get(NarrativeControl);
+		control.page++;
+
+		var str = "Unknown page.";
+		switch(control.page)
+		{
+			case 1:
+			str =
+			"Time gave birth to many children called epochs.\n" +  
+			"One of these is your ancestor.\n" + 
+			"My father - your grandfather - is the hour, \n" + 
+			"and he sired your fifty-nine uncles.\n" + 
+			"And now I am ready for parenthood.\n" + 
+			"You will be my seconds and I \n" + 
+			"have great things planned for you.\n" + 
+			"Oh but sixty children is way too many!\n" + 
+			"You shall number six and you shall span \n" + 
+			"ten seconds apiece.";	
+
+			case 2:
+			str = 
+			"Children, it is time for a world to come to be.\n" + 
+			"Each of you must choose where to spend time.\n" + 
+			"Where should you speed change and growth?\n" + 
+			"First cool the lava to make water and land,\n" + 
+			"and also cool the water to make life possible.\n" + 
+			"Then hasten hurl a meteor to create minerals.\n" + 
+			"Upon the water you may then create life!\n" +
+			"And then ... oh, you’ll figure out the rest.";
+			
+			case 3:
+			str = 
+			"But know you are not done until\n" + 
+			"life on this planet reaches the stars!";
+
+			case 4:
+			getApplication().changeMode(ApplicationMode.GAME);
+			return;
+		}
+
+		e = resolveEntity("narrative_text");
+		var text:Text = e.get(Text);
+		text.message = str;
+	}
 }

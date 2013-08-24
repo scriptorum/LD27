@@ -7,9 +7,14 @@ class Control
 	}
 }
 
-class FireControl extends Control // Can fire barrel
+class NarrativeControl extends Control // Can fire barrel
 {
-	public static var instance:Control = new FireControl();
+	public var page:Int = 0;
+
+	override public function new()
+	{
+		super();
+	}
 }
 
 class ProfileControl extends Control // Can display profile stats
@@ -22,23 +27,12 @@ class MenuControl extends Control // Can click new/continue
 	public static var instance:Control = new MenuControl();
 }
 
-class CreditsControl extends Control 
+class GameControl extends Control 
 {
-	public static var instance:Control = new CreditsControl();
+	public static var instance:Control = new GameControl();
 }
 
-class LevelEndControl extends Control // Can click continue/replay
+class EndControl extends Control // Can click continue/replay
 {
-	public static var instance:Control = new LevelEndControl();
+	public static var instance:Control = new EndControl();
 }
-
-class EditorControl extends Control // Can toggle editor mode
-{
-	public static var instance:Control = new EditorControl();
-}
-
-class EditControl extends Control // Can edit level
-{
-	public static var instance:Control = new EditControl();
-}
-

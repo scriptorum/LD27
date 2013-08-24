@@ -49,12 +49,16 @@ class InitSystem extends System
 			initMode(); // immediately transition to above mode
 
 			case MENU:
-			// factory.startMenu();
+			factory.startMenu();
+
+			case NARRATIVE:
+			factory.startNarrative();
 
 			case GAME:
-			// factory.startLevel();
+			factory.startGame();
 
-			case CREDITS:
+			case END:
+			factory.startEnd();
 		}
 
 		app.init = false;

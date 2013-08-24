@@ -9,6 +9,7 @@ import com.haxepunk.utils.Key;
 
 import game.service.EntityService;
 import game.service.InputService;
+import game.node.ControlNode;
 
 #if profiler
 	import game.service.ProfileService;
@@ -34,6 +35,7 @@ class InputSystem extends System
 	override public function update(_)
 	{
 		handleProfileControl();
+		handleNarrativeControl();
 		InputService.clearLastKey();
 	}
 
@@ -50,5 +52,14 @@ class InputSystem extends System
 	 		}
 	 	}
 		#end
+	}
+
+	public function handleNarrativeControl()
+	{
+		for(node in engine.getNodeList(NarrativeControlNode))
+		{
+			if(InputService.clicked)
+				factory.nextNarrativePage();
+		}
 	}
 }

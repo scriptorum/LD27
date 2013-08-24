@@ -4,9 +4,9 @@ import ash.core.Node;
 
 import game.component.Control;
 
-class FireControlNode extends Node<FireControlNode>
+class NarrativeControlNode extends Node<NarrativeControlNode>
 {
-	public var control:FireControl;
+	public var control:NarrativeControl;
 }
 
 class MenuControlNode extends Node<MenuControlNode>
@@ -14,9 +14,9 @@ class MenuControlNode extends Node<MenuControlNode>
 	public var control:MenuControl;
 }
 
-class CreditsControlNode extends Node<CreditsControlNode>
+class EndControlNode extends Node<EndControlNode>
 {
-	public var control:CreditsControl;
+	public var control:EndControl;
 }
 
 class ProfileControlNode extends Node<ProfileControlNode>
@@ -24,17 +24,7 @@ class ProfileControlNode extends Node<ProfileControlNode>
 	public var control:ProfileControl;
 }
 
-class LevelEndControlNode extends Node<LevelEndControlNode>
+class GameControlNode extends Node<GameControlNode>
 {
-	public var control:LevelEndControl;
-}
-
-class EditorControlNode extends Node<EditorControlNode>
-{
-	public var control:EditorControl;
-}
-
-class EditControlNode extends Node<EditControlNode>
-{
-	public var control:EditControl;
+	public var control:GameControl;
 }

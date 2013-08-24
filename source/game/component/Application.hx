@@ -1,6 +1,6 @@
 package game.component;
 
-enum ApplicationMode { INIT; MENU; GAME; CREDITS; }
+enum ApplicationMode { INIT; MENU; GAME; NARRATIVE; END; }
 
 class Application
 {

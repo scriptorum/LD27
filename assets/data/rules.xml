@@ -1,0 +1,102 @@
+<!-- 
+	All grid spaces are either water or land terrain. 
+	Many objects can only exist on one type of terrain.
+	After any click, set flag to RESTART_TRIGGER_RESOLUTION
+	Triggering System:
+	  - If < 100ms since last trigger check, skip
+	  - If CURRENT_RESOLVE_OBJECT/TRIGGER is not null, resolve that trigger
+	    - If a trigger is activate, stop (so trigger resolves again next iteration)
+	    - If a trigger is NOT activated set TRIGGER to next one in list
+	      (Always resolve triggers from early objects first, they're highest priority.)
+	    - If at end of trigger list set CURRENT_RESOLVE_OBJECT/TRIGGER to null
+	  - Otherwise if RESTART_TRIGGER_RESOLUTION flag on, turn flag off and set 
+	    CURRENT_RESOLVE_OBJECT/TRIGGER to first object/first trigger and resolve as above.
+
+	After a click makes a change, that space is subject to a LOCK period, which lasts until 
+	all triggering stops. The message "Watching changes occur" shows if you click on such a space.
+-->
+<rules>
+	<object type="any" terrain="any"/>
+	<object type="any" terrain="water"/>
+	<object type="any" terrain="land"/>
+	<object type="clear" terrain="any">
+		<click terrain="land" result="meteor" message="Dropping a meteor" />
+		<trigger terrain="water" neighbor="lava" min="5" max="8" result="steam" message="Some water evaporates"/>
+		<trigger terrain="any" neighbor="meteor" chance="0.8" result="mineral" message="A meteor spreads minerals"/>
+		<trigger terrain="land" neighbor="algae" min="2" max="8" result="plant" message="A plant grows from nearby algae"/>
+	</object>
+	<object type="lava" terrain="any">
+		<click result="clear" message="Cooling some lava"/>
+	</object>
+	<object type="steam" terrain="water">
+		<click result="water" message="Cooling some water"/>
+		<trigger neighbor="lava" min="0" max="3" result="clear" message="Some lava cools"/>
+	</object>
+	<object type="cells" terrain="water">
+		<click result="algae" message="Growing algae"/>
+	</object>
+	<object type="algae" terrain="water">
+		<click result="fish" message="Creating a fish"/>
+	</object>
+	<object type="fish" terrain="water">
+		<click result="clear" message="Cooling some lava"/>
+		<trigger neighbor="lava" min="4" max="8" result="clear" message="Some fish are dying from nearby lava"/>
+		<trigger neighbor="steam" min="3" max="8" result="clear" message="Some fish are dying from nearby steam"/>
+	</object>
+	<object type="mineral" terrain="any"> <!-- mineral on land disappears -->
+		<click terrain="water" result="cells" message="Growing cells"/>
+		<trigger terrain="land" result="clear"/>
+	</object>
+	<object type="meteor" terrain="land">
+		<click result="YYYY" message="XXXX"/>
+		<trigger result="clear"/>
+	</object>
+	<object type="plant" terrain="land">
+		<click result="seed" message="Making a seed"/>
+	</object>
+	<object type="seed" terrain="land">
+		<click result="tree" message="Growing a tree"/>
+	</object>
+	<object type="tree" terrain="land">
+		<click result="building" message="Constructing a building"/>
+	</object>
+	<object type="reptile" terrain="land">
+		<click result="carnivore" message="Creating a carnivore"/>
+	</object>
+	<object type="rodent" terrain="land">
+		<click result="herbivore" message="Creating an herbivore"/>
+	</object>
+	<object type="herbivore" terrain="land">
+		<click result="caveman" message="Creating a caveman"/>
+	</object>
+	<object type="carnivore" terrain="land">
+		<click result="caveman" message="Creating a caveman"/>
+	</object>
+	<object type="caveman" terrain="land"> <!-- derived either from herbivore or carnivore -->
+		<click result="human" message="Creating a human"/>
+	</object>
+	<object type="human" terrain="land">
+		<click result="dwelling" message="Forming a dwelling"/>
+	</object>
+	<object type="dwelling" terrain="land">
+		<click result="village" message="Enlarging to a village"/>
+	</object>
+	<object type="village" terrain="land">
+		<click result="city" message="Enlarging to a city"/>
+	</object>
+	<object type="bulding" terrain="land">
+		<click result="factory" message="Building a factory"/>
+	</object>
+	<object type="factory" terrain="land">
+		<click result="citadel" message="Constructing the citadel"/>
+	</object>
+	<object type="city" terrain="land">
+		<click result="metropolis" message="Enlarging to a metropolic"/>
+	</object>
+	<object type="metropolis" terrain="land">
+		<click result="ignore" message="Admiring a metropolis"/>
+	</object>
+	<object type="citadel" terrain="land"> <!-- science center/NASA -->
+		<click result="launch" message="Launching the space program"/>
+	</object>
+</rules>
