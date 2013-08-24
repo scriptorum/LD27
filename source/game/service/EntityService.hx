@@ -14,6 +14,7 @@ import game.component.CameraFocus;
 import game.component.Control;
 import game.component.Dependents;
 import game.component.Display;
+import game.component.Data;
 import game.component.Emitter;
 import game.component.Grid;
 import game.component.Image;
@@ -497,11 +498,17 @@ class EntityService
 			addTo(e, 180 + 40 * i, 5);
 		}
 
-		e = resolveEntity("status");
+		e = resolveEntity("messageBar");
 		e.add(Layer.middle);
 		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
 		e.add(new Text("Loading", style));
 		e.add(new Position(20, 575));
+
+		e = resolveEntity("statusBar");
+		e.add(Layer.middle);
+		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
+		e.add(new Text("", style));
+		e.add(new Position(20, 20));
 
 		addControl(new GameControl());
 	}
@@ -610,9 +617,15 @@ class EntityService
 
 	public function setMessage(message:String): Void
 	{
-		// trace(message);
-		var e = resolveEntity("status");
+		var e = resolveEntity("messageBar");
 		var text = e.get(Text);
 		text.message = message;
+	}
+
+	public function setStatus(message:String): Void
+	{
+		var e = resolveEntity("statusBar");
+		var text = e.get(Text);
+		text.message = (message == null || message == "" ? "" : "[ " + message + " ]");
 	}
 }

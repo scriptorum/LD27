@@ -25,7 +25,7 @@ class Main extends Engine
 			#if flash
 				if (flash.system.Capabilities.isDebugger)
 			#end
-			HXP.console.enable();
+			// HXP.console.enable();
 		#end
  
 		HXP.scene = new GameWorld();

@@ -44,6 +44,7 @@ class InputSystem extends System
 		handleMenuControl();
 		handleGameControl();
 		handleEndControl();
+		handleDebugControl();
 		InputService.clearLastKey();
 	}
 
@@ -84,14 +85,28 @@ class InputSystem extends System
 	{
 		for(node in engine.getNodeList(GameControlNode))
 		{
+			var index = factory.gridTest(factory.getGridEntity(), 
+				InputService.mouseX, InputService.mouseY);				
 			if(InputService.clicked)
 			{
-				var index = factory.gridTest(factory.getGridEntity(), 
-					InputService.mouseX, InputService.mouseY);
 				if(index >= 0)
 					addInteraction(index);
 				else factory.getApplication().changeMode(ApplicationMode.END);
 			}
+			else if(index >= 0)
+			{
+				var status:String = "";
+				var grid:Grid = factory.getGrid();
+				var status = MapService.getTypeFromValue(grid.getIndex(index));
+				if(status == "clear")
+				{
+					grid = factory.getTerrainGrid();
+					status = MapService.getTypeFromValue(grid.getIndex(index));
+				}
+
+				factory.setStatus(status);
+			}
+			else factory.setStatus("");
 		}
 	}
 
@@ -121,5 +136,9 @@ class InputSystem extends System
 			if(InputService.clicked)
 				factory.getApplication().changeMode(ApplicationMode.MENU);
 		}
+	}
+
+	public function handleDebugControl()
+	{
 	}
 }
