@@ -6,15 +6,37 @@ import openfl.Assets;
 
 class MapService
 {
-	public static var WATER:Int = 0;
-	public static var LAND:Int = 1;
-	public static var LAVA:Int = 2;
-	public static var STEAM:Int = 3;
-	public static var CLEAR:Int = 4;
+	public static var CLEAR:Int = 0;
+	public static var UNKNOWN:Int = 1;
+	public static var WATER:Int = 2;
+	public static var LAND:Int = 3;
+	public static var LAVA:Int = 4;
+	public static var STEAM:Int = 5;
+	public static var CELLS:Int = 6;
+	public static var ALGAE:Int = 7;
 
-	public static var CELLS:Int = 8;
-	public static var ALGAE:Int = 9;
-	public static var UNKNOWN:Int = 10;
+	public static var MINERAL:Int = 8;
+	public static var METEOR:Int = 9;
+	public static var FISH:Int = 10;
+	public static var PLANT:Int = 11;
+	public static var SEED:Int = 12;
+	public static var TREE:Int = 13;
+	public static var REPTILE:Int = 14;
+	public static var RODENT:Int = 15;
+
+	public static var BLANK:Int = 16; //////
+	public static var HERBIVORE:Int = 17;
+	public static var CARNIVORE:Int = 18;
+	public static var CAVEMAN:Int = 19;
+	public static var HUMAN:Int = 20;
+	public static var DWELLING:Int = 21;
+	public static var BUILDING:Int = 22;
+	public static var VILLAGE:Int = 23;
+
+	public static var FACTORY:Int = 24;
+	public static var CITY:Int = 25;
+	public static var METROPOLIS:Int = 26;
+	public static var CITADEL:Int = 27;
 
 	public static var WIDTH:Int = 14;
 	public static var HEIGHT:Int = 13;
@@ -25,8 +47,10 @@ class MapService
 	public static var triggers:Array<TriggerRule>;
 
 	public static var typeValues:Array<String> = [
-		"water", "land", "lava", "steam", "clear", null, null, null,
-		"cells", "algae", "unknown", null, null, null, null, null
+		"clear", "unknown", "water", "land", "lava", "steam", "cells", "algae",
+		"mineral", "meteor", "fish", "plant", "seed", "tree", "reptile", "rodent",
+		"blank", "herbivore", "carnivore", "caveman", "human", "dwelling", "building", "village",
+		"factory", "city", "metropolis", "citadel"
 	];
 
 	public static function getTypeFromValue(value:Int): String
