@@ -18,6 +18,7 @@ import game.system.AudioSystem;
 import game.system.ActionSystem;
 import game.system.TriggerSystem;
 import game.system.InteractionSystem;
+import game.system.TimerUpdatingSystem;
 import game.component.Control;
 
 #if profiler
@@ -50,6 +51,7 @@ class GameWorld extends World
 
 		addSystem(new InteractionSystem(ash, factory));
 		addSystem(new TriggerSystem(ash, factory));
+		addSystem(new TimerUpdatingSystem(ash, factory));
 
 		addSystem(new ActionSystem(ash, factory));
 		addSystem(new TweeningSystem(ash, factory));

@@ -15,6 +15,7 @@ import game.component.Application;
 import game.component.ActionQueue;
 import game.component.Tween;
 import game.component.Grid;
+import game.component.Control;
 import game.component.TimeChild;
 import game.component.Interaction;
 import game.component.Position;
@@ -38,6 +39,9 @@ class InteractionSystem extends System
 
 	override public function update(_)
 	{
+		if(!factory.hasControl(GameControl))
+			return;
+
 		for(node in engine.getNodeList(InteractionNode))
 		{
 			// See if any children are working on this space already

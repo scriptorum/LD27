@@ -13,6 +13,7 @@ import game.node.TimeChildNode;
 import game.component.Application;
 import game.component.Grid;
 import game.component.TriggerRule;
+import game.component.Control;
 
 class TriggerSystem extends System
 {
@@ -46,6 +47,9 @@ class TriggerSystem extends System
 	override public function update(elapsed:Float)
 	{
 		if(MapService.triggers == null)
+			return;
+
+		if(!factory.hasControl(GameControl))
 			return;
 
 		if(currentTrigger < 0)
@@ -87,6 +91,7 @@ class TriggerSystem extends System
 	public function resolveTrigger(): Bool
 	{
 		var rule:TriggerRule = MapService.triggers[currentTrigger];
+
 		var grid = factory.getGrid();
 		var terrainGrid = factory.getTerrainGrid();
 		var triggerMatches:Int = 0;
@@ -136,6 +141,14 @@ class TriggerSystem extends System
 			triggerMatches++;
 			if(changeList == null)
 			 	changeList = new Map<Int, Int>();
+
+			 // Detect game end trigger
+			if(rule.resultType == "victory")
+			{
+				factory.stopGame();				
+				return true;
+			}
+
 			changeList.set(i, MapService.getValueFromType(rule.resultType));
 		}
 

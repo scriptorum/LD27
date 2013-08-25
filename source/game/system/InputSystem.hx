@@ -92,7 +92,6 @@ class InputSystem extends System
 			{
 				if(index >= 0)
 					addInteraction(index);
-				else factory.getApplication().changeMode(ApplicationMode.END);
 			}
 			else if(index >= 0)
 			{
@@ -141,13 +140,20 @@ class InputSystem extends System
 
 	public function handleDebugControl()
 	{
+		#if debug
 		if(InputService.pressed(InputService.debug))
 		{
-			#if !flash
-				var path:String = "/tmp/entities.log";
-				Util.dumpLog(engine, path);
-				// trace(Util.dumpHaxePunk(com.haxepunk.HXP.scene));
-			#end
+			// #if !flash
+			// 	var path:String = "/tmp/entities.log";
+			// 	Util.dumpLog(engine, path);
+			// 	// trace(Util.dumpHaxePunk(com.haxepunk.HXP.scene));
+			// #end
+
+			// factory.stopGame();					
+			var grid = factory.getGrid();
+			grid.set(0, 0, MapService.getValueFromType("victory"));
+			grid.changed = true;
 		}
+		#end
 	}
 }

@@ -12,7 +12,7 @@ class MapService
 	public static var WATER:Int = 2;
 	public static var LAND:Int = 3;
 	public static var LAVA:Int = 4;
-
+	
 	public static var WIDTH:Int = 14;
 	public static var HEIGHT:Int = 13;
 

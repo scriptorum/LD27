@@ -2,11 +2,11 @@ package game.component;
 
 class Timestamp
 {
-	public var stamp:Int;
+	public var value:Int;
 
-	function new(stamp:Int)
+	function new(value:Int)
 	{
-		this.stamp = stamp;	
+		this.value = value;	
 	}
 
 	public static function now(): Int

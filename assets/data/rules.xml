@@ -129,4 +129,8 @@
 		<click result="victory" message="Launching the space program"/>
 	</object> 
 
+	<object type="victory">
+		<trigger result="victory" message="Time has paid off"/>
+	</object>
+
 </rules>

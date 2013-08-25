@@ -498,19 +498,42 @@ class EntityService
 			addTo(e, 180 + 40 * i, 5);
 		}
 
+		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
+
 		e = resolveEntity("messageBar");
 		e.add(Layer.middle);
-		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
 		e.add(new Text("Offspring", style));
 		e.add(new Position(20, 575));
 
 		e = resolveEntity("statusBar");
 		e.add(Layer.middle);
-		var style = new TextStyle(0xFFFF88, 16, "font/SnappyServiceNF.ttf");
 		e.add(new Text("", style));
 		e.add(new Position(20, 20));
 
+		e = resolveEntity("timer");
+		e.add(Layer.middle);
+		e.add(new Text("", style));
+		e.add(new Position(535, 20));
+		e.add(Timestamp.create());
+
 		addControl(new GameControl());
+	}
+
+	public function stopGame(): Void
+	{
+		var e = resolveEntity("timer");
+		var stamp = e.get(Timestamp);
+		var elapsed = Timestamp.now() - stamp.value;
+
+		e = makeEntity("score");
+		e.add(Layer.middle);
+		e.add(new Transitional(END));
+		var style = new TextStyle(0xFFFF88, 18, "font/SnappyServiceNF.ttf");
+		var str = (Std.string(elapsed / 1000) + " seconds");
+		e.add(new Text(str, style));
+		addTo(e, 305, 340);
+
+		getApplication().changeMode(ApplicationMode.END);
 	}
 
 	public function startEnd(): Void
@@ -524,6 +547,24 @@ class EntityService
 		e.add(Layer.middle);
 		e.add(new Image("art/but-mainmenu.png"));
 		addTo(e, 238, 530);
+
+		e = makeEntity("stats");
+		e.add(Layer.middle);
+		e.add(new Image("art/end-stats.png"));
+		addTo(e, 185, 340);
+
+		e = makeEntity("text");
+		e.add(Layer.middle);
+		var style = new TextStyle(0xFFFFFF, 30, "font/SnappyServiceNF.ttf");
+		e.add(new Text("You have done well, my children.\n" +
+			"I am proud of how you spent your time.", style));
+		addTo(e, 75, 150);
+
+		style = new TextStyle(0xFF9600, 18, "font/SnappyServiceNF.ttf");
+		e = makeEntity("text");
+		e.add(Layer.middle);
+		e.add(new Text("5 seconds", style));
+		addTo(e, 305, 378);
 
 		addControl(new EndControl());
 	}
