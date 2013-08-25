@@ -15,6 +15,7 @@ import game.node.InteractionNode;
 import game.component.Application;
 import game.component.Grid;
 import game.component.Interaction;
+import game.util.Util;
 
 #if profiler
 	import game.service.ProfileService;
@@ -120,7 +121,7 @@ class InputSystem extends System
 		{
 			if(pt.x == node.interaction.x && pt.y == node.interaction.y)
 			{
-				factory.setMessage("Time makes you wait");
+				factory.setMessage("You must wait for time");
 				return;
 			}
 		}
@@ -140,5 +141,13 @@ class InputSystem extends System
 
 	public function handleDebugControl()
 	{
+		if(InputService.pressed(InputService.debug))
+		{
+			#if !flash
+				var path:String = "/tmp/entities.log";
+				Util.dumpLog(engine, path);
+				// trace(Util.dumpHaxePunk(com.haxepunk.HXP.scene));
+			#end
+		}
 	}
 }

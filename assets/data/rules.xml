@@ -9,7 +9,7 @@
 	<object type="clear" terrain="any">
 		<click terrain="land" result="meteor" message="Dropping a meteor" />
 		<trigger terrain="water" neighbor="lava" min="5" max="8" result="steam" message="Some water evaporates"/>
-		<trigger terrain="any" neighbor="meteor" chance="0.8" result="mineral" message="A meteor spreads minerals"/>
+		<trigger terrain="any" neighbor="meteor" chance="0.8" min="1" result="mineral" message="A meteor spreads minerals"/>
 		<trigger terrain="land" neighbor="algae" min="2" max="8" result="plant" message="A plant grows from nearby algae"/>
 	</object>
 	<object type="lava" terrain="any">
@@ -70,7 +70,7 @@
 	<object type="village" terrain="land">
 		<click result="city" message="Enlarging to a city"/>
 	</object>
-	<object type="bulding" terrain="land">
+	<object type="building" terrain="land">
 		<click result="factory" message="Building a factory"/>
 	</object>
 	<object type="factory" terrain="land">

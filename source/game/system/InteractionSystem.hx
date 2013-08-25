@@ -99,11 +99,12 @@ class InteractionSystem extends System
 			var newType:String = MapService.getClickResult(type);
 			var newValue = MapService.getValueFromType(newType);
 			aq.addCallback(function() { 
-				grid.set(interaction.x, interaction.y, newValue); 
+				if(newValue >= 0)
+					grid.set(interaction.x, interaction.y, newValue); 
 				grid.changed = true;
 				factory.setMessage(MapService.getClickMessage(type));
 				timeChild.pleaseTrigger = true;
-				childEnt.remove(Interaction);
+				gridEnt.remove(Interaction);
 			});
 
 			// Animate child back to origin

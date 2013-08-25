@@ -133,8 +133,15 @@ class MapService
 			var type:String = obj.get("type");
 			for(clk in obj.elementsNamed("click"))
 			{
-				clickMessages.set(type, clk.get("message"));
-				clickResults.set(type, clk.get("result"));
+				var message = clk.get("message");
+				if(message == null)
+					trace("Click is missing message:" + clk);
+				else clickMessages.set(type, message);
+
+				var resultType = clk.get("result");
+				if(resultType == null)
+					trace("Click is missing result:" + clk);
+				else clickResults.set(type, resultType);
 				// NOTE this will break if you assign multiple clicks to a single object
 				// You'll need to refactor this if you want to add conditional clicks
 			}
