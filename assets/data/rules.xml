@@ -6,10 +6,10 @@
 	<object type="any"/>
 
 	<object type="clear">
-		<click terrain="land" result="meteor" message="Dropping a meteor" />
+		<click result="meteor" message="Dropping a meteorite" />
 		<trigger terrain="water" neighbor="lava" min="3" max="8" result="steam" message="Some water evaporates into steam"/>
+		<trigger terrain="land" chance="0.1" neighbor="algae" min="2" result="plant" message="A plant grows from nearby algae"/>
 		<trigger terrain="any" neighbor="meteor" chance="0.8" min="1" result="mineral" message="A meteor spreads minerals"/>
-		<trigger terrain="land" neighbor="algae" min="2" max="8" result="plant" message="A plant grows from nearby algae"/>
 	</object>
 	<object type="lava">
 		<click result="clear" message="Cooling some lava"/>
@@ -18,26 +18,33 @@
 		<click result="clear" message="Cooling some water"/>
 		<trigger neighbor="lava" min="0" max="2" result="clear" message="Some steam cools into water"/>
 	</object>
- 	<object type="cells">
-		<click result="algae" message="Growing algae"/>
-	</object>
 	<object type="meteor">
-		<trigger result="mineral" message="A meteor crumbles to dust"/>
+		<trigger terrain="water" chance="0.9" result="mineral" message="A meteorite sinks"/>
+		<trigger terrain="land" chance="0.1" result="mineral" message="A meteorite crumbles"/>
 	</object>
 	<object type="mineral">
 		<click terrain="water" result="cells" message="Growing cells"/>
-		<trigger terrain="land" result="clear" message="Dry minerals turn into dust"/>
+		<trigger terrain="water" chance="0.01" min="1" neighbor="steam" result="clear" message="Minerals have washed away"/>
+		<trigger terrain="land" chance="0.02" result="clear" message="Minerals have turned into dust"/>
 	</object>
-<!--	<object type="algae">
-		<click result="fish" message="Creating a fish"/>
+ 	<object type="cells">
+		<click result="algae" message="Growing algae"/>
+		<trigger terrain="land" chance="0.1" result="clear" message="Some cells have broken down"/>
+		<trigger terrain="water" chance="0.01" result="clear" message="Some cells have dissolved"/>
 	</object>
+	<object type="algae">
+		<trigger neighbor="mineral" chance="0.2" max="0" result="clear" message="Some algae has starved"/>
+		<trigger terrain="land" chance="0.02" result="clear" message="Some algae has dried out"/>
+	</object>
+	<object type="plant">
+		<click result="seed" message="Making a seed"/>
+	</object>
+
+<!--
 	<object type="fish">
 		<click result="clear" message="Killing some fish"/>
 		<trigger neighbor="lava" min="4" max="8" result="clear" message="Some fish are dying from nearby lava"/>
 		<trigger neighbor="steam" min="3" max="8" result="clear" message="Some fish are dying from nearby steam"/>
-	</object>
-	<object type="plant">
-		<click result="seed" message="Making a seed"/>
 	</object>
 	<object type="seed">
 		<click result="tree" message="Growing a tree"/>

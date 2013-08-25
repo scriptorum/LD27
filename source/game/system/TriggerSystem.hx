@@ -50,12 +50,13 @@ class TriggerSystem extends System
 
 		if(currentTrigger < 0)
 		{
-			if(triggerRequested())
-			{
+			// TRYING THIS OUT - always triggering
+			// if(triggerRequested())
+			// {
 				currentTrigger = 0;
 				// trace("Starting trigger list from the top");				
-			}
-			else return;
+			// }
+			// else return;
 		}
 
 		// Throttle calls a bit
@@ -76,7 +77,8 @@ class TriggerSystem extends System
 		// Set trigger to next in list or mark end of list (if trigger requested, triggering will resolve next iteration)
 		if(++currentTrigger >= MapService.triggers.length)
 		{
-			currentTrigger = -1;
+			currentTrigger = 0; // TRYING THIS OUT - always triggering
+			// currentTrigger = -1;
 			// trace("Reached end of trigger list");			
 		}
 	}

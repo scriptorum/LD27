@@ -96,7 +96,7 @@ class InteractionSystem extends System
 
 			// Animate working image
 			// TODO Get 10 seconds from config 
-			var time = 2; // hack for convenience
+			var time = 5; // hack for convenience
 			var tweenRot360 = factory.addTween(rotation, { angle:360 }, time - 0.4, Easing.linear, false);
 			aq.addCallback(function() { tweenRot360.start(); });
 			aq.waitForProperty(tweenRot360, "complete", true);

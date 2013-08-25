@@ -1,12 +1,8 @@
 /*
-	- Get rid of all "value" storing in the TriggerRules. Instead you should always convert
-	  grid values to their type strings and compare. And when you compare, you always have 
-	  to check for "any".
-
-	- Provide "any" as a default value in reasonable locations in MapService.init
-
 	- Chart out your rules!! You need this done in a few hours so you can start adding effects
 	  and polishing.
+
+	- A rule should not trigger on a space that is being interacted with by a time child.
 */
 package game;
 
