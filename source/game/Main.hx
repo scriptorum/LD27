@@ -24,7 +24,6 @@
 	  else. That works for me...
 
 	- DUDE - mind map your 20 or so objects and get some basic rules thrown in there for all objects.
-
 */
 package game;
 
@@ -41,11 +40,14 @@ class Main extends Engine
 
 	override public function init()
 	{
+		// trace("TRACES ARE ENABLED");
 		#if debug
-			#if flash
-				if (flash.system.Capabilities.isDebugger)
-			#end
+			// #if flash
+			// 	if (flash.system.Capabilities.isDebugger)
+			// #end
 			// HXP.console.enable();
+			// HXP.console.enable(TraceCapture.No)
+			// haxe.Log.trace = function(v:Dynamic, ?inf:haxe.PosInfos) {};
 		#end
  
 		HXP.scene = new GameWorld();

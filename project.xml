@@ -1,9 +1,13 @@
 
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-    <haxedef name="development"/> 
     <section if="cpp">
+        <haxedef name="development"/> 
         <haxedef name="debug"/> 
+    </section>
+
+    <section if="flash">
+        <haxeflag name="--no-traces"/>
     </section>
 
     <!-- 

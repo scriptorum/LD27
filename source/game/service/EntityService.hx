@@ -477,8 +477,15 @@ class EntityService
 		e.add(subdivision);
 		e.add(grid);
 		e.add(gridPos);
+		// e.add(new Position(0,0));
 
 		grid = MapService.makeObjects();
+		// Flash haxepunk has an issue: it doesn't erase the canvas under a tile before
+		// drawing a tile that has alpha in it.
+		// TODO Come up with a simple example and post to GitHub as issue
+		#if flash
+			grid.eraseBeforeUpdate = true;
+		#end
 		e = resolveEntity("objectGrid");
 		e.add(Layer.middle);
 		e.add(objectImage);

@@ -42,10 +42,11 @@ class GridView extends View
 			for(y in 0...g.height)
 			for(x in 0...g.width)
 			{
-				var t = g.get(x,y);
-				if(tileMap.getTile(x,y) != t)
-					tileMap.setTile(x, y, g.get(x, y));
+				if(g.eraseBeforeUpdate)
+					tileMap.clearRect(x, y);
+				tileMap.setTile(x, y, g.get(x, y));
 			}
+
 			g.changed = false;
 		}
 	}

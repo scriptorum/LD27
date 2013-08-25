@@ -3,9 +3,11 @@ package game.component;
 class Layer
 {
 	public static var BACK:Int = 300;
+	public static var SEMIBACK:Int = 250;
 	public static var MIDDLE:Int = 200;
 	public static var FRONT:Int = 100;
 	public static var back:Layer = new Layer(BACK);
+	public static var semiback:Layer = new Layer(SEMIBACK);
 	public static var middle:Layer = new Layer(MIDDLE);
 	public static var front:Layer = new Layer(FRONT);
 

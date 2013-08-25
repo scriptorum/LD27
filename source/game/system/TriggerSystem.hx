@@ -157,7 +157,7 @@ class TriggerSystem extends System
 			return false;
 
 		// trace("Found " + triggerMatches + " changes due to rule " + game.util.Util.dump(rule) + 
-			// " with indeces" + changeList);
+		// 	" with indeces" + changeList);
 
 		// Matches, so apply the changes to the grid
 		for(change in changeList.keys())

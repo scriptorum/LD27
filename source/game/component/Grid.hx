@@ -6,6 +6,7 @@ import game.util.Util;
 class Grid extends Array2D<Int>
 {
 	public var changed:Bool = true;
+	public var eraseBeforeUpdate:Bool = false;
 
 	override public function new(width:Int, height:Int, initValue:Dynamic = 0)
 	{
