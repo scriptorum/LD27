@@ -22,9 +22,9 @@
 		<click result="algae" message="Growing algae"/>
 	</object>
 	<object type="meteor">
-		<click result="mineral" message="A meteor crumbles to dust"/>
+		<trigger result="mineral" message="A meteor crumbles to dust"/>
 	</object>
-	<object type="mineral"> 
+	<object type="mineral">
 		<click terrain="water" result="cells" message="Growing cells"/>
 		<trigger terrain="land" result="clear" message="Dry minerals turn into dust"/>
 	</object>
