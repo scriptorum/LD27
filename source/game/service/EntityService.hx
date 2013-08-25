@@ -448,8 +448,10 @@ class EntityService
 	}
 	public function startMenu(): Void
 	{
-		startGame();
-		return; // REMOVE HACK
+		// startGame();
+		// return; // REMOVE HACK
+
+		addSound("menu.wav", true);
 
 		var e = makeEntity("bg");
 		e.add(Layer.back);
@@ -461,6 +463,8 @@ class EntityService
 
 	public function startGame(): Void
 	{
+		addSound("game.wav", true);
+
 		var e = makeEntity("bg");
 		e.add(Layer.back);
 		e.add(new Image("art/game.png"));
@@ -545,6 +549,8 @@ class EntityService
 
 	public function startEnd(): Void
 	{
+		addSound("end.wav", true);
+
 		var e = makeEntity("bg");
 		e.add(Layer.back);
 		e.add(new Image("art/altbg.png"));
@@ -578,6 +584,8 @@ class EntityService
 
 	public function startNarrative(): Void
 	{
+		addSound("narrative.wav", true);
+
 		var e = makeEntity("bg");
 		e.add(Layer.back);
 		e.add(new Image("art/altbg.png"));

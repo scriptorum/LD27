@@ -6,7 +6,7 @@
 	<object type="any"/>
 
 	<object type="clear">
-		<click result="meteor" message="Dropping a meteorite" />
+		<click result="meteor" message="Dropping a meteorite"/>
 		
 		<trigger terrain="water" neighbor="lava" min="3" max="8" result="steam" message="Some water evaporates into steam"/>
 
@@ -28,7 +28,7 @@
 		<click result="clear" message="Cooling some water"/>
 		<trigger neighbor="lava" min="0" max="2" result="clear" message="Some steam cools into water"/>
 	</object>
-	<object type="meteor">
+	<object type="meteor" audio="meteorite.wav">
 		<click result="clear" message="Clearing a meteorite"/>
 		<trigger terrain="water" chance="0.9" result="mineral" message="A meteorite sinks"/>
 		<trigger terrain="land" chance="0.1" result="mineral" message="A meteorite crumbles"/>

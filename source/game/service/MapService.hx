@@ -19,6 +19,7 @@ class MapService
 	public static var xml:Xml;
 	public static var clickMessages:Map<String, String>;
 	public static var clickResults:Map<String, String>;
+	public static var objectAudio:Map<String, String>;
 	public static var triggers:Array<TriggerRule>;
 
 	public static var triggerValues:Array<String> = [
@@ -109,6 +110,7 @@ class MapService
 
 		clickMessages = new Map();
 		clickResults = new Map();
+		objectAudio = new Map();
 		triggers = new Array<TriggerRule>();
 
 		for(obj in xml.elementsNamed("object"))
@@ -118,11 +120,16 @@ class MapService
 			if(objectType == null)
 				throw("object is missing a type:" + obj);
 
+			var audio = obj.get("audio");
+			if(audio != null)
+				objectAudio.set(objectType, audio);
+
 			for(clk in obj.elementsNamed("click"))
 			{
 				var message = clk.get("message");
 				if(message == null)
 					throw("Click is missing message:" + clk);
+				clickMessages.set(objectType, message);
 
 				var resultType = clk.get("result");
 				if(resultType == null)
@@ -131,8 +138,6 @@ class MapService
 					throw("ResultType " + resultType + " is invalid:" + clk);
 				if(resultType == "water" || resultType == "land")
 					throw("ResultType cannot be terrain:" + clk);
-
-				clickMessages.set(objectType, message);
 				clickResults.set(objectType, resultType);
 
 				// NOTE this will break if you assign multiple clicks to a single object
@@ -146,6 +151,7 @@ class MapService
 				var terrainType = trg.get("terrain");
 				var neighborType = trg.get("neighbor");
 				var message = trg.get("message");
+				var audio = trg.get("audio");
 
 				if(resultType == null)
 					throw("Empty resultType for " + trg);
@@ -158,7 +164,7 @@ class MapService
 				if(neighborType == null)
 					neighborType = "any";
 
-				var trigger = new TriggerRule(objectType, terrainType, resultType, neighborType, message);
+				var trigger = new TriggerRule(objectType, terrainType, resultType, neighborType, message, audio);
 
 				if(trg.exists("chance"))
 					trigger.chance = Std.parseFloat(trg.get("chance"));
@@ -187,5 +193,10 @@ class MapService
 	public static function getClickMessage(type:String): String
 	{
 		return clickMessages.get(type);
+	}
+
+	public static function getAudio(type:String): String
+	{
+		return objectAudio.get(type);
 	}
 }

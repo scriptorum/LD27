@@ -69,7 +69,6 @@ class InteractionSystem extends System
 			var objectType = MapService.getTypeFromValue(objectValue);
 			var resultType:String = MapService.getClickResult(objectType);
 			var resultValue = MapService.getValueFromType(resultType);
-			trace("GetClickResult gridValue:" + objectValue + " ObjectType:" + objectType + " resultType:" + resultType + " resultValue:" + resultValue);
 			factory.setMessage(MapService.getClickMessage(objectType));
 
 			// Set child to working
@@ -107,11 +106,14 @@ class InteractionSystem extends System
 
 			// Change underlying grid			
 			aq.addCallback(function() { 
+				var audio:String = MapService.getAudio(resultType);
+				if(audio != null)
+					factory.addSound(audio);
+					
 				if(resultValue == 2)
 					throw("Trying to set water to the object grid");
 				else if(resultValue >= 0)
 					grid.set(interaction.x, interaction.y, resultValue); 
-				trace("resultType:" + resultType + " resultValue:" + resultValue);
 				grid.changed = true;
 				timeChild.pleaseTrigger = true;
 				gridEnt.remove(Interaction);

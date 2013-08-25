@@ -143,20 +143,17 @@ class InputSystem extends System
 		// #if debug
 		if(InputService.pressed(InputService.debug))
 		{
-			var e = factory.getGridEntity();
-			e.remove(game.component.Display);
-			factory.getGrid().changed = true;
-
 			// #if !flash
 			// 	var path:String = "/tmp/entities.log";
 			// 	Util.dumpLog(engine, path);
 			// 	// trace(Util.dumpHaxePunk(com.haxepunk.HXP.scene));
 			// #end
 
-			// // factory.stopGame();					
-			// var grid = factory.getGrid();
-			// grid.set(0, 0, MapService.getValueFromType("victory"));
-			// grid.changed = true;
+			// factory.stopGame();					
+			
+			var grid = factory.getGrid();
+			grid.set(0, 0, MapService.getValueFromType("victory"));
+			grid.changed = true;
 		}
 		// #end
 	}
