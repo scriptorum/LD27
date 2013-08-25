@@ -59,6 +59,15 @@ class InteractionSystem extends System
 
 	public function employChild(childEnt:Entity, interaction:Interaction, gridPos:Position): Void
 	{
+			// Change message
+			var grid = factory.getGrid();
+			var objectValue = grid.get(interaction.x, interaction.y);
+			var objectType = MapService.getTypeFromValue(objectValue);
+			var resultType:String = MapService.getClickResult(objectType);
+			var resultValue = MapService.getValueFromType(resultType);
+			// trace("GetClickResult gridValue:" + objectValue + " ObjectType:" + objectType + " resultType:" + resultType + " resultValue:" + resultValue);
+			factory.setMessage(MapService.getClickMessage(objectType));
+
 			// Set child to working
 			var gridEnt:Entity = factory.getGridEntity();
 			var timeChild = childEnt.get(TimeChild);
@@ -93,16 +102,12 @@ class InteractionSystem extends System
 			aq.waitForProperty(tweenRot360, "complete", true);
 
 			// Change underlying grid			
-			var grid = factory.getGrid();
-			var value = grid.get(interaction.x, interaction.y);
-			var type = MapService.getTypeFromValue(value);
-			var newType:String = MapService.getClickResult(type);
-			var newValue = MapService.getValueFromType(newType);
 			aq.addCallback(function() { 
-				if(newValue >= 0)
-					grid.set(interaction.x, interaction.y, newValue); 
+				if(resultValue == 2)
+					throw("Trying to set water to the object grid");
+				else if(resultValue >= 0)
+					grid.set(interaction.x, interaction.y, resultValue); 
 				grid.changed = true;
-				factory.setMessage(MapService.getClickMessage(type));
 				timeChild.pleaseTrigger = true;
 				gridEnt.remove(Interaction);
 			});

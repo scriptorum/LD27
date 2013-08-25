@@ -1,10 +1,12 @@
 /*
+	- Get rid of all "value" storing in the TriggerRules. Instead you should always convert
+	  grid values to their type strings and compare. And when you compare, you always have 
+	  to check for "any".
 
- - Clicking on steam space will send it back to water but the trigger then doesn't bring it back to steam.
- - Clicking on a water space causes the space to lock up with a "null" and reclick for "time passes"
-   and again will crash game "unknown object type 5". -- fixed the crash, but still.
-   MAYBE this comes from "overclicking?" Clicking too much leads to strange features...
+	- Provide "any" as a default value in reasonable locations in MapService.init
 
+	- Chart out your rules!! You need this done in a few hours so you can start adding effects
+	  and polishing.
 */
 package game;
 

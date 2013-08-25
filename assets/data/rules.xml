@@ -3,86 +3,86 @@
 	Many objects can only exist on one type of terrain.
 -->
 <rules>
-	<object type="any" terrain="any"/>
-	<object type="any" terrain="water"/>
-	<object type="any" terrain="land"/>
-	<object type="clear" terrain="any">
+	<object type="any"/>
+
+	<object type="clear">
 		<click terrain="land" result="meteor" message="Dropping a meteor" />
-		<trigger terrain="water" neighbor="lava" min="5" max="8" result="steam" message="Some water evaporates"/>
+		<trigger terrain="water" neighbor="lava" min="3" max="8" result="steam" message="Some water evaporates into steam"/>
 		<trigger terrain="any" neighbor="meteor" chance="0.8" min="1" result="mineral" message="A meteor spreads minerals"/>
 		<trigger terrain="land" neighbor="algae" min="2" max="8" result="plant" message="A plant grows from nearby algae"/>
 	</object>
-	<object type="lava" terrain="any">
+	<object type="lava">
 		<click result="clear" message="Cooling some lava"/>
 	</object>
-	<object type="steam" terrain="water">
-		<click result="water" message="Cooling some water"/>
-		<trigger neighbor="lava" min="0" max="1" result="clear" message="Some steam cools into solid water."/>
+	<object type="steam">
+		<click result="clear" message="Cooling some water"/>
+		<trigger neighbor="lava" min="0" max="2" result="clear" message="Some steam cools into water"/>
 	</object>
-	<object type="cells" terrain="water">
+ 	<object type="cells">
 		<click result="algae" message="Growing algae"/>
 	</object>
-	<object type="algae" terrain="water">
+	<object type="meteor">
+		<click result="mineral" message="A meteor crumbles to dust"/>
+	</object>
+	<object type="mineral"> 
+		<click terrain="water" result="cells" message="Growing cells"/>
+		<trigger terrain="land" result="clear" message="Dry minerals turn into dust"/>
+	</object>
+<!--	<object type="algae">
 		<click result="fish" message="Creating a fish"/>
 	</object>
-	<object type="fish" terrain="water">
+	<object type="fish">
 		<click result="clear" message="Killing some fish"/>
 		<trigger neighbor="lava" min="4" max="8" result="clear" message="Some fish are dying from nearby lava"/>
 		<trigger neighbor="steam" min="3" max="8" result="clear" message="Some fish are dying from nearby steam"/>
 	</object>
-	<object type="mineral" terrain="any"> <!-- mineral on land disappears -->
-		<click terrain="water" result="cells" message="Growing cells"/>
-		<trigger terrain="land" result="clear" message="Some turn into dust"/>
-	</object>
-	<object type="meteor" terrain="land">
-		<click result="meteor" message="A meteor pummels the ground"/>
-	</object>
-	<object type="plant" terrain="land">
+	<object type="plant">
 		<click result="seed" message="Making a seed"/>
 	</object>
-	<object type="seed" terrain="land">
+	<object type="seed">
 		<click result="tree" message="Growing a tree"/>
 	</object>
-	<object type="tree" terrain="land">
+	<object type="tree">
 		<click result="building" message="Constructing a building"/>
 	</object>
-	<object type="reptile" terrain="land">
+	<object type="reptile">
 		<click result="carnivore" message="Creating a carnivore"/>
 	</object>
-	<object type="rodent" terrain="land">
+	<object type="rodent">
 		<click result="herbivore" message="Creating an herbivore"/>
 	</object>
-	<object type="herbivore" terrain="land">
+	<object type="herbivore">
 		<click result="caveman" message="Creating a caveman"/>
 	</object>
-	<object type="carnivore" terrain="land">
+	<object type="carnivore">
 		<click result="caveman" message="Creating a caveman"/>
 	</object>
-	<object type="caveman" terrain="land"> <!-- derived either from herbivore or carnivore -->
+	<object type="caveman"> 
 		<click result="human" message="Creating a human"/>
 	</object>
-	<object type="human" terrain="land">
+	<object type="human">
 		<click result="dwelling" message="Forming a dwelling"/>
 	</object>
-	<object type="dwelling" terrain="land">
+	<object type="dwelling">
 		<click result="village" message="Enlarging to a village"/>
 	</object>
-	<object type="village" terrain="land">
+	<object type="village">
 		<click result="city" message="Enlarging to a city"/>
 	</object>
-	<object type="building" terrain="land">
+	<object type="building">
 		<click result="factory" message="Building a factory"/>
 	</object>
-	<object type="factory" terrain="land">
+	<object type="factory">
 		<click result="citadel" message="Constructing the citadel"/>
 	</object>
-	<object type="city" terrain="land">
+	<object type="city">
 		<click result="metropolis" message="Enlarging to a metropolic"/>
 	</object>
-	<object type="metropolis" terrain="land">
+	<object type="metropolis">
 		<click result="ignore" message="Admiring a metropolis"/>
 	</object>
-	<object type="citadel" terrain="land"> <!-- science center/NASA -->
+	<object type="citadel">
 		<click result="launch" message="Launching the space program"/>
-	</object>
+	</object> 
+-->
 </rules>

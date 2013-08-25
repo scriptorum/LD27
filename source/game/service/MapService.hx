@@ -3,6 +3,7 @@ package game.service;
 import game.component.Grid;
 import game.component.TriggerRule;
 import openfl.Assets;
+import haxe.CallStack;
 
 class MapService
 {
@@ -46,7 +47,7 @@ class MapService
 	public static var clickResults:Map<String, String>;
 	public static var triggers:Array<TriggerRule>;
 
-	public static var typeValues:Array<String> = [
+	public static var triggerValues:Array<String> = [
 		"clear", "unknown", "water", "land", "lava", "steam", "cells", "algae",
 		"mineral", "meteor", "fish", "plant", "seed", "tree", "reptile", "rodent",
 		"blank", "herbivore", "carnivore", "caveman", "human", "dwelling", "building", "village",
@@ -55,7 +56,7 @@ class MapService
 
 	public static function getTypeFromValue(value:Int): String
 	{
-		var res:String = typeValues[value];
+		var res:String = triggerValues[value];
 		if(res == null)
 		{
 			trace("Unknown object type:" + value);
@@ -71,9 +72,18 @@ class MapService
 			trace("Cannot getValueFromType null");
 			return -1;
 		}
-		var value = game.util.Util.find(typeValues, type);
+
+		if(type == "any")
+		{
+			trace("Cannot determine value for 'any' - must be special-cased.");
+			return 0;
+		}
+
+		var value = game.util.Util.find(triggerValues, type);
 		if(value < 0)
+		{			
 			trace("Unknown value for type:" + type);
+		}
 		return value;
 	}
 
@@ -130,40 +140,59 @@ class MapService
 		for(obj in xml.elementsNamed("object"))
 		{
 			// Load click rules
-			var type:String = obj.get("type");
+			var objectType:String = obj.get("type");
+			if(objectType == null)
+				throw("object is missing a type:" + obj);
+
 			for(clk in obj.elementsNamed("click"))
 			{
 				var message = clk.get("message");
 				if(message == null)
-					trace("Click is missing message:" + clk);
-				else clickMessages.set(type, message);
+					throw("Click is missing message:" + clk);
 
 				var resultType = clk.get("result");
 				if(resultType == null)
-					trace("Click is missing result:" + clk);
-				else clickResults.set(type, resultType);
+					throw("Click is missing result:" + clk);
+				if(getValueFromType(resultType) < 0)
+					throw("ResultType " + resultType + " is invalid:" + clk);
+				if(resultType == "water" || resultType == "land")
+					throw("ResultType cannot be terrain:" + clk);
+
+				clickMessages.set(objectType, message);
+				clickResults.set(objectType, resultType);
+
 				// NOTE this will break if you assign multiple clicks to a single object
 				// You'll need to refactor this if you want to add conditional clicks
 			}
-			var typeValue = getValueFromType(type);
 
 			// Load trigger rules
 			for(trg in obj.elementsNamed("trigger"))
 			{
 				var resultType = trg.get("result");
-				var resultValue = getValueFromType(resultType);
 				var terrainType = trg.get("terrain");
 				var neighborType = trg.get("neighbor");
-				var neighborValue = (neighborType == null ? -1 : getValueFromType(neighborType));
+				var message = trg.get("message");
 
-				var trigger = new TriggerRule(type, typeValue, terrainType, resultType, 
-					resultValue, trg.get("message"), neighborType, neighborValue);
+				if(resultType == null)
+					throw("Empty resultType for " + trg);
+				if(getValueFromType(resultType) < 0)
+					throw("ResultType " + resultType + " is invalid:" + trg);
+				if(message == null)
+					throw("Empty message for " + trg);
+				if(terrainType == null)
+					terrainType = "any";
+				if(neighborType == null)
+					neighborType = "any";
+
+				var trigger = new TriggerRule(objectType, terrainType, resultType, neighborType, message);
+
 				if(trg.exists("chance"))
 					trigger.chance = Std.parseFloat(trg.get("chance"));
 				if(trg.exists("max"))
 					trigger.max = Std.parseInt(trg.get("max"));
 				if(trg.exists("min"))
 					trigger.min = Std.parseInt(trg.get("min"));
+
 				triggers.push(trigger);
 			}
 		}

@@ -121,7 +121,7 @@ class InputSystem extends System
 		{
 			if(pt.x == node.interaction.x && pt.y == node.interaction.y)
 			{
-				factory.setMessage("You must wait for time");
+				factory.setMessage("Patience");
 				return;
 			}
 		}

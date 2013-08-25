@@ -16,7 +16,7 @@ import game.component.TriggerRule;
 
 class TriggerSystem extends System
 {
-	public static var TRIGGER_FREQ:Float = 0.150;
+	public static var TRIGGER_FREQ:Float = 0.05;
 	public var engine:Engine;
 	public var factory:EntityService;
 	public var currentTrigger:Int = -1;
@@ -51,7 +51,10 @@ class TriggerSystem extends System
 		if(currentTrigger < 0)
 		{
 			if(triggerRequested())
+			{
 				currentTrigger = 0;
+				// trace("Starting trigger list from the top");				
+			}
 			else return;
 		}
 
@@ -59,13 +62,12 @@ class TriggerSystem extends System
 		else
 		{
 			accumTime += elapsed;
-			// trace("Checking trigger throttle, trigger is:" + currentTrigger + " accumTime:" + accumTime);
 			if(accumTime < TRIGGER_FREQ)
 				return;
 			accumTime -= TRIGGER_FREQ;		
 		}
 
-			// trace("Resolving next trigger:");
+		// trace("Resolving next trigger");
 		// Resolve trigger
 		// If activated, stop, so trigger resolves again next iteration
 		if(resolveTrigger())
@@ -73,7 +75,10 @@ class TriggerSystem extends System
 
 		// Set trigger to next in list or mark end of list (if trigger requested, triggering will resolve next iteration)
 		if(++currentTrigger >= MapService.triggers.length)
+		{
 			currentTrigger = -1;
+			// trace("Reached end of trigger list");			
+		}
 	}
 
 	// Return true if trigger "activates"
@@ -85,59 +90,59 @@ class TriggerSystem extends System
 		var triggerMatches:Int = 0;
 		var changeList:Map<Int,Int> = null;
 
+		// trace("Checking rule " + game.util.Util.dump(rule));
+
 		for(i in 0...grid.size)
 		{
-			// Match terrain type
-			if(rule.terrainType != "any")
+			// Match object type
+			if(rule.objectType != "any")
 			{
-				var type = MapService.getTypeFromValue(terrainGrid.getIndex(i));
-				if(type != rule.terrainType)
+				var objectType = MapService.getTypeFromValue(grid.getIndex(i));
+				if(objectType != rule.objectType)
 					continue;
 			}
 
-			// Match object type
-			if(rule.type == "any" || rule.typeValue != grid.getIndex(i))
-				continue;
+			// Match terrain type
+			if(rule.terrainType != "any")
+			{
+				var terrainType = MapService.getTypeFromValue(terrainGrid.getIndex(i));
+				if(terrainType != rule.terrainType)
+					continue;
+			}
 
-			// Hrm -- why would this be null? What kind of trigger does not require a neighbor type?
-			// TODO probably an issue here
-			if(rule.neighborType == null)
-				continue;
+			// Match neighbor types
+			if(rule.neighborType != "any")
+			{
+				var ruleNeighborValue = MapService.getValueFromType(rule.neighborType);
 
-			// trace("(1) Trigger check! rule:"+ game.util.Util.dump(rule) + " at position " + i);
+				// Count neighbor matches
+				var neighborMatches = 0;
+				for(neighbor in grid.getNeighboringIndeces(i))
+					if(grid.getIndex(neighbor) == ruleNeighborValue)
+						neighborMatches++;
 
-			// Count neighbor matches
-			var neighborMatches = 0;
-			for(neighbor in grid.getNeighboringIndeces(i))
-				if(grid.getIndex(neighbor) == rule.neighborValue)
-					neighborMatches++;
-
-			// Match neighbor min/max matches
-			if(neighborMatches < rule.min || neighborMatches > rule.max)
-				continue;
-
-			// trace("(2) Trigger check! rule:"+ game.util.Util.dump(rule) + " at position " + i);
+				// Match neighbor min/max matches
+				if(neighborMatches < rule.min || neighborMatches > rule.max)
+					continue;
+			}			
 
 			// If chance involved, go for it
-			if(rule.chance < 1.0 && Math.random() < rule.chance)
+			if(rule.chance < 1.0 && Math.random() >= rule.chance)
 				continue;
-
-			// trace("(3) Trigger check! rule:"+ game.util.Util.dump(rule) + " at position " + i);
 
 			// We have a match! Finally! Goddamn.
 			triggerMatches++;
 			if(changeList == null)
 			 	changeList = new Map<Int, Int>();
-			changeList.set(i, rule.resultValue);
-			// trace("(4) Trigger check! rule:"+ game.util.Util.dump(rule) + " at position " + i);
+			changeList.set(i, MapService.getValueFromType(rule.resultType));
 		}
 
 		// If no matches, this trigger didn't activate. Go home.
 		if(triggerMatches <= 0)
 			return false;
 
-		trace("Found " + triggerMatches + " changes due to rule " + game.util.Util.dump(rule) + 
-			" with indeces" + changeList);
+		// trace("Found " + triggerMatches + " changes due to rule " + game.util.Util.dump(rule) + 
+			// " with indeces" + changeList);
 
 		// Matches, so apply the changes to the grid
 		for(change in changeList.keys())
