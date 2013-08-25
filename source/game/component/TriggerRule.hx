@@ -8,7 +8,7 @@ class TriggerRule
 	public var message:String;
 	public var neighborType:String; // can be null
 	public var chance:Float = 1.0;
-	public var min:Int = 0;
+	public var min:Int = 1;
 	public var max:Int = 8;
 
 	public function new(objectType:String, terrainType:String, resultType:String,

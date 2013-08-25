@@ -12,32 +12,6 @@ class MapService
 	public static var WATER:Int = 2;
 	public static var LAND:Int = 3;
 	public static var LAVA:Int = 4;
-	public static var STEAM:Int = 5;
-	public static var CELLS:Int = 6;
-	public static var ALGAE:Int = 7;
-
-	public static var MINERAL:Int = 8;
-	public static var METEOR:Int = 9;
-	public static var FISH:Int = 10;
-	public static var PLANT:Int = 11;
-	public static var SEED:Int = 12;
-	public static var TREE:Int = 13;
-	public static var REPTILE:Int = 14;
-	public static var RODENT:Int = 15;
-
-	public static var BLANK:Int = 16; //////
-	public static var HERBIVORE:Int = 17;
-	public static var CARNIVORE:Int = 18;
-	public static var CAVEMAN:Int = 19;
-	public static var HUMAN:Int = 20;
-	public static var DWELLING:Int = 21;
-	public static var BUILDING:Int = 22;
-	public static var VILLAGE:Int = 23;
-
-	public static var FACTORY:Int = 24;
-	public static var CITY:Int = 25;
-	public static var METROPOLIS:Int = 26;
-	public static var CITADEL:Int = 27;
 
 	public static var WIDTH:Int = 14;
 	public static var HEIGHT:Int = 13;
@@ -51,7 +25,7 @@ class MapService
 		"clear", "unknown", "water", "land", "lava", "steam", "cells", "algae",
 		"mineral", "meteor", "fish", "plant", "seed", "tree", "reptile", "rodent",
 		"blank", "herbivore", "carnivore", "caveman", "human", "dwelling", "building", "village",
-		"factory", "city", "metropolis", "citadel"
+		"factory", "city", "metropolis", "citadel", "victory"
 	];
 
 	public static function getTypeFromValue(value:Int): String
@@ -89,7 +63,7 @@ class MapService
 
 	public static function makeTerrain(): Grid
 	{
-		var chanceWater = 0.6;
+		var chanceWater = 0.5;
 		var grid = new Grid(WIDTH, HEIGHT);
 
 		// Randomly set up some land/water

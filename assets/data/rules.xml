@@ -7,9 +7,19 @@
 
 	<object type="clear">
 		<click result="meteor" message="Dropping a meteorite" />
+		
 		<trigger terrain="water" neighbor="lava" min="3" max="8" result="steam" message="Some water evaporates into steam"/>
+
 		<trigger terrain="land" chance="0.1" neighbor="algae" min="2" result="plant" message="A plant grows from nearby algae"/>
-		<trigger terrain="any" neighbor="meteor" chance="0.8" min="1" result="mineral" message="A meteor spreads minerals"/>
+
+		<trigger neighbor="meteor" chance="0.8" min="1" result="mineral" message="A meteor spreads minerals"/>
+
+		<trigger terrain="land" neighbor="plant" chance="0.05" min="2" result="seed" message="Seeds collect near the fruit of a plant"/>
+
+		<trigger terrain="land" neighbor="human" chance="0.05" min="1" max="2" result="human" message="A human multiplies"/>
+		
+		<trigger neighbor="factory" min="1" chance="0.02" result="mineral" message="Soot forms near factory"/>
+
 	</object>
 	<object type="lava">
 		<click result="clear" message="Cooling some lava"/>
@@ -19,6 +29,7 @@
 		<trigger neighbor="lava" min="0" max="2" result="clear" message="Some steam cools into water"/>
 	</object>
 	<object type="meteor">
+		<click result="clear" message="Clearing a meteorite"/>
 		<trigger terrain="water" chance="0.9" result="mineral" message="A meteorite sinks"/>
 		<trigger terrain="land" chance="0.1" result="mineral" message="A meteorite crumbles"/>
 	</object>
@@ -31,65 +42,91 @@
 		<click result="algae" message="Growing algae"/>
 		<trigger terrain="land" chance="0.1" result="clear" message="Some cells have broken down"/>
 		<trigger terrain="water" chance="0.01" result="clear" message="Some cells have dissolved"/>
+		<trigger terrain="water" chance="0.02" result="fish" message="A fish has formed"/>
+		<trigger terrain="land" chance="0.1" neighbor="fish" min="1" result="reptile" message ="A reptile crawls onto the land"/>
+		<trigger neighbor="plant" chance="0.02" min="2" result="plant" message="A plant spreads"/>
 	</object>
 	<object type="algae">
+		<click result="clear" message="Clearing algae"/>
 		<trigger neighbor="mineral" chance="0.2" max="0" result="clear" message="Some algae has starved"/>
 		<trigger terrain="land" chance="0.02" result="clear" message="Some algae has dried out"/>
 	</object>
 	<object type="plant">
-		<click result="seed" message="Making a seed"/>
-	</object>
-
-<!--
-	<object type="fish">
-		<click result="clear" message="Killing some fish"/>
-		<trigger neighbor="lava" min="4" max="8" result="clear" message="Some fish are dying from nearby lava"/>
-		<trigger neighbor="steam" min="3" max="8" result="clear" message="Some fish are dying from nearby steam"/>
+		<click result="clear" message="Clearing a plant"/>
+		<trigger terrain="land" chance="0.1" neighbor="plant" min="2" result="rodent" message ="A rodent appears among the plants."/>
+		<trigger terrain="land" chance="0.05" neighbor="rodent" min="2" result="rodent" message ="Rodents are multiplying"/>
 	</object>
 	<object type="seed">
 		<click result="tree" message="Growing a tree"/>
+		<trigger neighbor="seed" chance="0.2" min="2" result="clear" message="A pile of seeds rot"/>
+		<trigger chance="0.05" result="clear" message="A few seeds rot"/>
 	</object>
 	<object type="tree">
-		<click result="building" message="Constructing a building"/>
+		<click result="clear" message="Clearing a tree"/>
+		<trigger terrain="land" neighbor="human" min="3" chance="0.04" result="dwelling" message="Human built a dwelling"/>
+	</object>
+	<object type="fish">
+		<click result="clear" message="Killing some fish"/>
+		<trigger neighbor="lava" min="1" result="clear" message="Fish are dying from nearby lava"/>
+		<trigger neighbor="steam" min="2" result="clear" message="Fish are dying from nearby steam"/>
 	</object>
 	<object type="reptile">
 		<click result="carnivore" message="Creating a carnivore"/>
 	</object>
 	<object type="rodent">
-		<click result="herbivore" message="Creating an herbivore"/>
+		<click result="herbivore" message="Creating a herbivore"/>
+		<trigger neighbor="reptile" chance="0.05" min="1" result="cells" message="A reptile eats a rodent"/>
 	</object>
 	<object type="herbivore">
-		<click result="caveman" message="Creating a caveman"/>
+		<click result="cells" message="Killing a herbivore"/>
+		<trigger neighbor="reptile" chance="0.01" result="cells" message="A reptile eats an herbivore"/>
+		<trigger neighbor="carnivore" chance="0.01" result="cells" message="A carnivore eats an herbivore"/>
+		<trigger neighbor="tree" min="2" chance="0.01" result="caveman" message="A herbivore stands upright"/>
 	</object>
 	<object type="carnivore">
-		<click result="caveman" message="Creating a caveman"/>
+		<click result="clear" message="Killing a carnivore"/>
+		<trigger neighbor="rodent" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
+		<trigger neighbor="herbivore" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
 	</object>
 	<object type="caveman"> 
 		<click result="human" message="Creating a human"/>
 	</object>
-	<object type="human">
-		<click result="dwelling" message="Forming a dwelling"/>
-	</object>
 	<object type="dwelling">
-		<click result="village" message="Enlarging to a village"/>
+		<click result="village" message="Creating a village"/>
+		<trigger chance="0.1" neighbor="land" min="3" result="building" message="Dwelling becomes a building"/>
 	</object>
-	<object type="village">
-		<click result="city" message="Enlarging to a city"/>
-	</object>
+
 	<object type="building">
+		<trigger neighbor="village" min="1" result="mineral" message="Building falls apart"/>
 		<click result="factory" message="Building a factory"/>
 	</object>
-	<object type="factory">
-		<click result="citadel" message="Constructing the citadel"/>
+
+	<object type="human">
+		<click result="clear" message="Killing a human"/>
 	</object>
+
+	<object type="village">
+		<click result="human" message="Forming a nomad"/>
+		<trigger neighbor="human" result="city" message="Village expands into city"/>
+	</object>
+
 	<object type="city">
-		<click result="metropolis" message="Enlarging to a metropolic"/>
+		<trigger neighbor="city" chance="0.1" result="metropolis" message="City expands into metropolis"/>
+		<trigger neighbor="metropolis" chance="0.1" result="building" message="Vacant city used for storage"/>
+		<click result="city" message="Admiring a city"/>
 	</object>
+
+	<object type="factory">
+		<click result="factory" message="Creating plastic and shipping it overseas"/>
+		<trigger neighbor="metropolis" result="citadel" message="Constructing a citadel!"/>
+	</object>
+
 	<object type="metropolis">
-		<click result="ignore" message="Admiring a metropolis"/>
+		<click result="metropolis" message="Admiring a metropolis"/>
 	</object>
+
 	<object type="citadel">
-		<click result="launch" message="Launching the space program"/>
+		<click result="victory" message="Launching the space program"/>
 	</object> 
--->
+
 </rules>
