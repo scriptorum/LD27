@@ -30,3 +30,15 @@ Unknown
 * OpenFL 1.05
 * Ash-Haxe 1.5.3
 * HaxePunk 2.3.2/dev repo
+
+###ATTRIBUTION
+This game uses these sounds from the contributors of freesound.org. 
+They were probably chopped, normalized, faded, and otherwise mangled for my purposes.
+
+* steam: http://www.freesound.org/people/jesabat/sounds/119741/
+* whoosh: http://www.freesound.org/people/Speedenza/sounds/168109/
+* trickle: http://www.freesound.org/people/nicStage/sounds/95087/
+* rustle: http://www.freesound.org/people/Montacue/sounds/178615/
+* animal: http://www.freesound.org/people/spenceomatic/sounds/119765/
+* construction: http://www.freesound.org/people/jcgd2/sounds/131259/
+* crowd: http://www.freesound.org/people/acclivity/sounds/25261/

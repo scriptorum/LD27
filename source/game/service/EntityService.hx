@@ -684,4 +684,9 @@ class EntityService
 		var text = e.get(Text);
 		text.message = (message == null || message == "" ? "" : "[ " + message + " ]");
 	}
+
+	public function tap(): Void
+	{
+		addSound("tap.wav");
+	}
 }

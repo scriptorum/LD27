@@ -165,6 +165,10 @@ class TriggerSystem extends System
 		grid.changed = true;
 		factory.setMessage(rule.message);
 
+		var audio:String = MapService.getAudio(rule.resultType);
+		if(audio != null)
+			factory.addSound(audio);					
+
 		return true;
 	}
 

@@ -22,9 +22,9 @@
 
 	</object>
 	<object type="lava">
-		<click result="clear" message="Cooling some lava"/>
+		<click result="clear" message="Cooling some lava" />
 	</object>
-	<object type="steam">
+	<object type="steam" audio="steam.wav">
 		<click result="clear" message="Cooling some water"/>
 		<trigger neighbor="lava" min="0" max="2" result="clear" message="Some steam cools into water"/>
 	</object>
@@ -33,7 +33,7 @@
 		<trigger terrain="water" chance="0.9" result="mineral" message="A meteorite sinks"/>
 		<trigger terrain="land" chance="0.1" result="mineral" message="A meteorite crumbles"/>
 	</object>
-	<object type="mineral">
+	<object type="mineral" audio="whoosh.wav">
 		<click terrain="water" result="cells" message="Growing cells"/>
 		<trigger terrain="water" chance="0.01" min="1" neighbor="steam" result="clear" message="Minerals have washed away"/>
 		<trigger terrain="land" chance="0.02" result="clear" message="Minerals have turned into dust"/>
@@ -46,12 +46,12 @@
 		<trigger terrain="land" chance="0.1" neighbor="fish" min="1" result="reptile" message ="A reptile crawls onto the land"/>
 		<trigger neighbor="plant" chance="0.02" min="2" result="plant" message="A plant spreads"/>
 	</object>
-	<object type="algae">
+	<object type="algae" audio="trickle.wav">
 		<click result="clear" message="Clearing algae"/>
 		<trigger neighbor="mineral" chance="0.2" max="0" result="clear" message="Some algae has starved"/>
 		<trigger terrain="land" chance="0.02" result="clear" message="Some algae has dried out"/>
 	</object>
-	<object type="plant">
+	<object type="plant" audio="rustle.wav">
 		<click result="clear" message="Clearing a plant"/>
 		<trigger terrain="land" chance="0.1" neighbor="plant" min="2" result="rodent" message ="A rodent appears among the plants."/>
 		<trigger terrain="land" chance="0.05" neighbor="rodent" min="2" result="rodent" message ="Rodents are multiplying"/>
@@ -61,71 +61,71 @@
 		<trigger neighbor="seed" chance="0.2" min="2" result="clear" message="A pile of seeds rot"/>
 		<trigger chance="0.05" result="clear" message="A few seeds rot"/>
 	</object>
-	<object type="tree">
+	<object type="tree" audio="rustle.wav">
 		<click result="clear" message="Clearing a tree"/>
 		<trigger terrain="land" neighbor="human" min="3" chance="0.04" result="dwelling" message="Human built a dwelling"/>
 	</object>
-	<object type="fish">
+	<object type="fish" audio="trickle.wav">
 		<click result="clear" message="Killing some fish"/>
 		<trigger neighbor="lava" min="1" result="clear" message="Fish are dying from nearby lava"/>
 		<trigger neighbor="steam" min="2" result="clear" message="Fish are dying from nearby steam"/>
 	</object>
-	<object type="reptile">
+	<object type="reptile" audio="trickle.wav">
 		<click result="carnivore" message="Creating a carnivore"/>
 	</object>
-	<object type="rodent">
+	<object type="rodent" audio="rustle.wav">
 		<click result="herbivore" message="Creating a herbivore"/>
 		<trigger neighbor="reptile" chance="0.05" min="1" result="cells" message="A reptile eats a rodent"/>
 	</object>
-	<object type="herbivore">
+	<object type="herbivore" audio="animal.wav">
 		<click result="cells" message="Killing a herbivore"/>
 		<trigger neighbor="reptile" chance="0.01" result="cells" message="A reptile eats an herbivore"/>
 		<trigger neighbor="carnivore" chance="0.01" result="cells" message="A carnivore eats an herbivore"/>
 		<trigger neighbor="tree" min="2" chance="0.01" result="caveman" message="A herbivore stands upright"/>
 	</object>
-	<object type="carnivore">
+	<object type="carnivore" audio="animal.wav">
 		<click result="clear" message="Killing a carnivore"/>
 		<trigger neighbor="rodent" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
 		<trigger neighbor="herbivore" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
 	</object>
-	<object type="caveman"> 
+	<object type="caveman" audio="grunt.wav"> 
 		<click result="human" message="Creating a human"/>
 	</object>
-	<object type="dwelling">
+	<object type="dwelling" audio="construction.wav">
 		<click result="village" message="Creating a village"/>
 		<trigger chance="0.1" neighbor="land" min="3" result="building" message="Dwelling becomes a building"/>
 	</object>
 
-	<object type="building">
+	<object type="building" audio="construction.wav">
 		<trigger neighbor="village" min="1" result="mineral" message="Building falls apart"/>
 		<click result="factory" message="Building a factory"/>
 	</object>
 
-	<object type="human">
+	<object type="human" audio="grunt.wav">
 		<click result="clear" message="Killing a human"/>
 	</object>
 
-	<object type="village">
+	<object type="village" audio="crowd.wav">
 		<click result="human" message="Forming a nomad"/>
 		<trigger neighbor="human" result="city" message="Village expands into city"/>
 	</object>
 
-	<object type="city">
+	<object type="city" audio="crowd.wav">
 		<trigger neighbor="city" chance="0.1" result="metropolis" message="City expands into metropolis"/>
 		<trigger neighbor="metropolis" chance="0.1" result="building" message="Vacant city used for storage"/>
 		<click result="city" message="Admiring a city"/>
 	</object>
 
-	<object type="factory">
+	<object type="factory" audio="construction.wav">
 		<click result="factory" message="Creating plastic and shipping it overseas"/>
 		<trigger neighbor="metropolis" result="citadel" message="Constructing a citadel!"/>
 	</object>
 
-	<object type="metropolis">
+	<object type="metropolis" audio="crowd.wav">
 		<click result="metropolis" message="Admiring a metropolis"/>
 	</object>
 
-	<object type="citadel">
+	<object type="citadel" audio="nasa.wav">
 		<click result="victory" message="Launching the space program"/>
 	</object> 
 
