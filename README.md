@@ -24,9 +24,9 @@ The goal is to bring about the creation of a civilization and a space launch.
 The game is covered by many rules. Explore. Or cheat, look below for spoilers.
 
 ## SPOILERS
-Lava covers the land and water and causes the water to boil, so get rid of it whenever it's in your way. 
+Lava covers the land and water and causes the water to boil, so get rid of it whenever it's in your way. Remember, you're able to assign six workers at the same, so go ahead and multitask. 
 
-A meteor spreads minerals which are needed to create cells. Cells can be turned into algae on the water, or if left alone, may evolve into a fish or a reptile, given access to other algae and fish, respectively. Minerals on land tend to blow away. Algae tends to die without access to minerals. 
+Clicking on clear land or water sends a meteor to the planet. A meteor spreads minerals which are needed to create cells. Cells can be turned into algae on the water, or if left alone, may evolve into a fish or a reptile, given access to other algae and fish, respectively. Minerals on land tend to blow away. Algae tends to die without access to minerals. 
 
 Plants grow next to (two) algae. Plants drop seeds which can be turned into trees (which also drop seeds). A set of three plants often evolve into rodents on their own. Rodents multiply with access to more plants. Rodents can be turned into herbivores. 
 
