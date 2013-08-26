@@ -82,13 +82,13 @@
 	<object type="herbivore" audio="animal.wav">
 		<click result="cells" message="Killing a herbivore"/>
 		<trigger neighbor="reptile" chance="0.01" result="cells" message="A reptile eats an herbivore"/>
-		<trigger neighbor="carnivore" chance="0.01" result="cells" message="A carnivore eats an herbivore"/>
-		<trigger neighbor="tree" min="2" chance="0.01" result="caveman" message="A herbivore stands upright"/>
+		<trigger neighbor="carnivore" chance="0.02" result="cells" message="A carnivore eats an herbivore"/>
+		<trigger neighbor="tree" min="2" chance="0.05" result="caveman" message="A herbivore stands upright"/>
 	</object>
 	<object type="carnivore" audio="animal.wav">
 		<click result="clear" message="Killing a carnivore"/>
 		<trigger neighbor="rodent" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
-		<trigger neighbor="herbivore" min="1" chance="0.01" result="caveman" message="A carnivore stands upright"/>
+		<trigger neighbor="herbivore" min="1" chance="0.05" result="caveman" message="A carnivore stands upright"/>
 	</object>
 	<object type="caveman" audio="grunt.wav"> 
 		<click result="human" message="Creating a human"/>
