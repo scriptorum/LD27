@@ -24,9 +24,19 @@ The goal is to bring about the creation of a civilization and a space launch.
 The game is covered by many rules. Explore. Or cheat, look below for spoilers.
 
 ## SPOILERS
-Coming up...
+Lava covers the land and water and causes the water to boil, so get rid of it whenever it's in your way. 
 
-Yes I know this game only has a few weak connections to scientific reality.
+A meteor spreads minerals which are needed to create cells. Cells can be turned into algae on the water, or if left alone, may evolve into a fish or a reptile, given access to other algae and fish, respectively. Minerals on land tend to blow away. Algae tends to die without access to minerals. 
+
+Plants grow next to (two) algae. Plants drop seeds which can be turned into trees (which also drop seeds). A set of three plants often evolve into rodents on their own. Rodents multiply with access to more plants. Rodents can be turned into herbivores. 
+
+Reptiles can be turned into carnivores. Carnivores next to a rodent or next to an herbivore will evolve into cavemen. Herbivores will also turn into cavemen if next to some trees. Caveman can be turned into humans. 
+
+Humans multiply like crazy. It takes three of them next to a tree to build a basic dwelling. This dwelling can be upgraded into a village and will rapidly grow to city size if humans stay near. When two cities are near each other, one will eventually become a metropolis. 
+
+Due to a bug in my code I just discovered :) there is only one path for forming a factory, and that is to wait for the smaller city next to the metropolis to downgrade into a storage building (everyone moved into the metropolis). From there you can upgrade it to a factory. 
+
+A factory next to a metropolis will automatically upgrade to a citadel. And from there, you can launch a space shuttle. Have at it.
 
 ###JOHNNY DANGEROUSLY REFERENCE
 You'll feel better if you have a cookie!
@@ -34,7 +44,7 @@ You'll feel better if you have a cookie!
 ## OTHER
 
 ###LINK TO GAME ENTRY
-Unknown
+http://www.ludumdare.com/compo/ludum-dare-27/?action=preview&uid=17811
 
 ###LIBRARIES USED
 * Haxe 3.0.0
