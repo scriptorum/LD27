@@ -24,17 +24,27 @@ The goal is to bring about the creation of a civilization and a space launch.
 The game is covered by many rules. Explore. Or cheat, look below for spoilers.
 
 ## SPOILERS
-Lava covers the land and water and causes the water to boil, so get rid of it whenever it's in your way. Remember, you're able to assign six workers at the same, so go ahead and multitask. 
+Offspring is a game about guiding a planet's evolution to life, humanity, and eventually space travel. It's for players who like clicking on stuff and going what the hell just happened and then criticizing the author's weak grasp of scientific theory. Oh yeah!
 
-Clicking on clear land or water sends a meteor to the planet. A meteor spreads minerals which are needed to create cells. Cells can be turned into algae on the water, or if left alone, may evolve into a fish or a reptile, given access to other algae and fish, respectively. Minerals on land tend to blow away. Algae tends to die without access to minerals. 
+You are Father Minute and have control of six time children. If you have an available child, you can send them to a space on the planet to work. They'll take 10 seconds and conduct massive change. For example, your child in one move can evolve a rodent from simple cells, or turn a village into a city. Another click can destroy the human you so carefully evolved from a caveman. So, experiment! The game isn't over until you build a "citadel," from which you can launch a shuttle into space and win the game.
 
-Plants grow next to (two) algae. Plants drop seeds which can be turned into trees (which also drop seeds). A set of three plants often evolve into rodents on their own. Rodents multiply with access to more plants. Rodents can be turned into herbivores. 
+Recommend you actually play with 5 seconds or less, as 10 seconds is a bit too zen-like slow for my liking.  The game is a little challenging without spoilers, so I'm preparing some below. 
+
+====
+
+Lava covers the land and water and causes the water to boil, so get rid of it whenever it's in your way. Remember, you're able to assign six workers at the same, so go ahead and multitask.
+ 
+Clicking on clear land or water sends a meteor to the planet. A meteor spreads minerals which are needed to create cells. Cells can be turned into algae on the water, or if left alone, may evolve into a fish or a reptile, given access to other algae and fish, respectively. Minerals on land tend to blow away. Algae tends to die without access to minerals.
+
+Plants grow next to (two) algae. Plants drop seeds which can be turned into trees (which also drop seeds). A set of three plants often evolve into rodents on their own. Rodents multiply with access to more plants. Rodents can be turned into herbivores.
 
 Reptiles can be turned into carnivores. Carnivores next to a rodent or next to an herbivore will evolve into cavemen. Herbivores will also turn into cavemen if next to some trees. Caveman can be turned into humans. 
 
-Humans multiply like crazy. It takes three of them next to a tree to build a basic dwelling. This dwelling can be upgraded into a village and will rapidly grow to city size if humans stay near. When two cities are near each other, one will eventually become a metropolis. 
+Humans multiply like crazy. It takes three of them next to a tree to build a basic dwelling. This dwelling can be upgraded into a village and will rapidly grow to city size if humans stay near. When two cities are near each other, one will eventually become a metropolis.
 
-Due to a bug in my code I just discovered :) there is only one path for forming a factory, and that is to wait for the smaller city next to the metropolis to downgrade into a storage building (everyone moved into the metropolis). From there you can upgrade it to a factory. 
+Not all things evolve when clicked on. Humans, algae, herbivores, carnivores, trees, fish, and meteors will be destroyed if you click on them.
+
+Due to a bug in my code I just discovered :) there is only one path for forming a factory, and that is to wait for the smaller city next to the metropolis to downgrade into a storage building (everyone moved into the metropolis). From there you can upgrade it to a factory.
 
 A factory next to a metropolis will automatically upgrade to a citadel. And from there, you can launch a space shuttle. Have at it.
 
