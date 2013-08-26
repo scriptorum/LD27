@@ -69,7 +69,21 @@ class InputSystem extends System
 		for(node in engine.getNodeList(MenuControlNode))
 		{
 			if(InputService.clicked)
-				factory.getApplication().changeMode(ApplicationMode.NARRATIVE);
+			{
+				var x = InputService.mouseX;
+				var y = InputService.mouseY;
+
+				if(x >= 296 && x <= 311 && y >= 564 && y < 584) 
+					factory.setMenuRadial(1);
+				else if(x >= 330 && x <= 345 && y >= 564 && y < 584) 
+					factory.setMenuRadial(2);
+				else if(x >= 364 && x <= 379 && y >= 564 && y < 584) 
+					factory.setMenuRadial(5);
+				else if(x >= 404 && x <= 419 && y >= 564 && y < 584) 
+					factory.setMenuRadial(10);
+				else if(x >= 196 && x <= 376 && y >= 370 && y <= 428) 
+					factory.getApplication().changeMode(ApplicationMode.NARRATIVE);
+			}
 		}
 	}
 
@@ -150,7 +164,7 @@ class InputSystem extends System
 			// #end
 
 			// factory.stopGame();					
-			
+
 			var grid = factory.getGrid();
 			grid.set(0, 0, MapService.getValueFromType("victory"));
 			grid.changed = true;

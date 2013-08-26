@@ -15,6 +15,7 @@ import game.component.Application;
 import game.component.ActionQueue;
 import game.component.Tween;
 import game.component.Grid;
+import game.component.Data;
 import game.component.Control;
 import game.component.TimeChild;
 import game.component.Interaction;
@@ -72,6 +73,9 @@ class InteractionSystem extends System
 			factory.setMessage(MapService.getClickMessage(objectType));
 			factory.tap();
 
+			var e = factory.resolveEntity("childTime");
+			var time = e.get(Data).value;
+
 			// Set child to working
 			var gridEnt:Entity = factory.getGridEntity();
 			var timeChild = childEnt.get(TimeChild);
@@ -99,8 +103,6 @@ class InteractionSystem extends System
 			});
 
 			// Animate working image
-			// TODO Get 10 seconds from config 
-			var time = 5; // hack for convenience
 			var tweenRot360 = factory.addTween(rotation, { angle:360 }, time - 0.4, Easing.linear, false);
 			aq.addCallback(function() { tweenRot360.start(); });
 			aq.waitForProperty(tweenRot360, "complete", true);

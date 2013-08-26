@@ -458,6 +458,8 @@ class EntityService
 		e.add(new Image("art/mainmenu.png"));
 		addTo(e, 0,0);
 
+		setMenuRadial(10);
+
 		addControl(new MenuControl());
 	}
 
@@ -530,6 +532,30 @@ class EntityService
 		addControl(new GameControl());
 	}
 
+	public function setMenuRadial(seconds:Int): Void
+	{
+		var e = resolveEntity("radial");
+		e.add(Layer.front);
+		e.add(new Image("art/menu-radial-on.png"));
+		switch(seconds)
+		{
+			case 1:
+			e.add(new Position(296, 564));
+			case 2:
+			e.add(new Position(330, 564));
+			case 5:
+			e.add(new Position(364, 564));
+			case 10:
+			e.add(new Position(404, 564));
+			default:
+			throw("Unsupported seconds:" + seconds);
+		}
+
+		e = resolveEntity("childTime");
+		e.add(new Data(seconds));
+		e.add(Transitional.ALWAYS);		
+	}
+
 	public function stopGame(): Void
 	{
 		var e = resolveEntity("timer");
@@ -573,10 +599,13 @@ class EntityService
 			"I am proud of how you spent your time.", style));
 		addTo(e, 75, 150);
 
+		e = resolveEntity("childTime");
+		var seconds = e.get(Data).value;
+
 		style = new TextStyle(0xFF9600, 18, "font/SnappyServiceNF.ttf");
 		e = makeEntity("text");
 		e.add(Layer.middle);
-		e.add(new Text("5 seconds", style));
+		e.add(new Text(Std.string(seconds) + " seconds", style));
 		addTo(e, 305, 378);
 
 		addControl(new EndControl());
