@@ -458,7 +458,7 @@ class EntityService
 		e.add(new Image("art/mainmenu.png"));
 		addTo(e, 0,0);
 
-		setMenuRadial(10);
+		setMenuRadial(5);
 
 		addControl(new MenuControl());
 	}

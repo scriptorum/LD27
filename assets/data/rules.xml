@@ -20,6 +20,8 @@
 		
 		<trigger neighbor="factory" min="1" chance="0.02" result="mineral" message="Soot forms near factory"/>
 
+		<trigger terrain="land" neighbor="tree" chance="0.02" min="1" result="seed" message="Seeds collect near the fallen fruit of a tree"/>
+
 	</object>
 	<object type="lava">
 		<click result="clear" message="Cooling some lava" />

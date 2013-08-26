@@ -9,13 +9,24 @@ Offspring is a game about guiding a planet's evolution to life, humanity, and ev
 your six "children" to fast-forward massive changes in a single location. For example, it only takes
 ten seconds to evolve a rodent from simple cells, or 10 seconds to turn a village into a city.
 
-In case 10 seconds turns 
-
 ###GOAL
 Bring about a space-faring civilization on the planet.
 
 ###HOW TO PLAY 
-Let you know later.
+You have control of six children. If you have a free child (they're at the top of the screen)
+you can click on a space to send a child to work there. Over a period of 10 seconds (or less
+if you had a lower child time selected in the main menu) a large amount of change/evolution/decay
+will happen. Then the child will return back to the top, ready for reassignment. Many changes will
+happen automatically because critical conditions exist.
+
+The goal is to bring about the creation of a civilization and a space launch.
+
+The game is covered by many rules. Explore. Or cheat, look below for spoilers.
+
+## SPOILERS
+Coming up...
+
+Yes I know this game only has a few weak connections to scientific reality.
 
 ###JOHNNY DANGEROUSLY REFERENCE
 You'll feel better if you have a cookie!
